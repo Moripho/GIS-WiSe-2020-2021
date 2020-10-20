@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Kontakt</title>
+</head>
+
+<body>
+<h1>Kontaktmöglichkeiten</h1>
+<img src="portrait.jpg" alt ="Das bin ich.">
+<h2>E-Mail</h2>
+<p>jonas.kopp@hs-furtwangen.de</p>
+<p>jonas-kopp.1@web.de</p>
+<h2>Instagram</h2>
+<p>Mein <a href= "https://www.instagram.com/therealkorpus/">Instagram-Profil</a>.</p>
+<p>Zu meinen Hobbys gehören Fahrradfahren, Musikhören, Kochen, Zocken und Schlafen.</p>
+<h2>Discord</h2>
+<p> Morpheus bzw. #6915</p>
+</body>
+
+</html>
