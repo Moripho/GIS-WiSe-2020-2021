@@ -147,3 +147,13 @@ font-size: 25px;
     margin: 0 auto 0 auto;
     font-size: 22px;
 }
+
+/* ABOUT *******************************/
+#work{
+    width: 900px;
+    margin: 0 auto 0 auto;
+}
+
+#projects ul{
+    padding: 0;
+}
