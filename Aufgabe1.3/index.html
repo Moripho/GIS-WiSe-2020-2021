@@ -2,26 +2,83 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<title>Portfolio</title>
+<title>Portfolio | Jonas Kopp</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet"> 
+
 </head>
 
 <body>
+    <!-- HEADER -->
 <header>
-    <nav>
+    <div id="logo">
+        <a href="#">
+            <img src="media/logo.png" alt="Logo Platzhalter">
+        </a>
+    </div>
+    
+    <nav id="main-nav">
         <ul>
             <li><a href= "index.html">Hauptseite</a></li>
-            <li><a href= "Steckbrief.html">Über mich</a></li>
+            <li><a href= "Steckbrief.html">Mehr Infos über mich</a></li>
             <li><a href= "Kontakt.html">Kontakt</a></li>
         </ul>
     </nav>
 </header>
+
+<!-- LANDING PAGE -->
 <main>
-<h1>Portfolio</h1>
-<img src="media/portrait.jpeg" alt ="Ein Bild von meiner Wenigkeit">
-<p>Hi ich bin Jonas.</p>
-<p>Dies ist mein Portfolio.</p>
-<p>Von hier aus erreicht ihr alle meine bisherigen Arbeiten.</p>
+<section id="home">
+<hr>
+<h1>Hi ich bin Jonas.</h1>
+<h2>Das hier ist mein...</h2>
+<a href="#about">
+<img src="../Aufgabe1.3/media/pfeil.png" alt="Pfeilbutton">
+</a>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<h3>Über mich</h3>
+<hr>
+<img src="../Aufgabe1.3/media/portrait2.jpeg" alt="Das bin ich.">
+<h4>Jonas Kopp / Moripho</h4>
+<p>Hi ich bin Jonas. Ich bin 23 Jahre alt und komme aus Stockach (nahe dem Bodensee). Ich studiere "Online Medien" an der Hochschule Furtwangen.</p>
+</section>
+
+<!-- WORK -->
+<section id="work">
+<h3>Meine bisherigen Arbeiten</h3>
+<hr>
+<div id="projects">
+    <ul>
+        <li><a href="#"><img src="https://placehold.it/270x180" alt="Projekt01"></a></li>
+        <li><a href="#"><img src="https://placehold.it/270x180" alt="Projekt02"></a></li>
+        <li><a href="#"><img src="https://placehold.it/270x180" alt="Projekt03"></a></li>
+    </ul>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h3>Kontakt</h3>
+<hr>
+<form>
+    <input type="email" tabindex="1" placeholder="E-Mail"><br>
+    <input type="text" tabindex="2" placeholder="Betreff"><br>
+    <textarea tabindex="3" placeholder="Nachricht"></textarea><br>
+    <input class="button" type="submit">
+</form>
+</section>
 </main>
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy 2020 Jonas Kopp a.k.a. Moripho</p>
+</footer>
+
 </body>
 
 </html>
