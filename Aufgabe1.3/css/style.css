@@ -121,7 +121,7 @@ header nav ul li:hover{
 
 #home img{
     width: 32px;
-    margin-top: 450px;
+    margin-top: 520px;
     opacity: 0.8;
 }
 
@@ -156,4 +156,20 @@ font-size: 25px;
 
 #projects ul{
     padding: 0;
+}
+
+#projects ul li{
+    width: 33.3%;
+    float: left;
+    margin-bottom: 15px;;
+}
+
+#projects img{
+    width: 280;
+    height: 170px;
+    border-radius: 5px;
+}
+
+#projects img:hover{
+    transform: scale(1.1);
 }
