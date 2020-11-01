@@ -1,36 +1,57 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-<meta charset="utf-8">
-<title>Kontakt</title>
+    <meta charset="utf-8">
+    <title>Kontakt</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
 </head>
 
 <body>
-<header>
-    <nav>
-        <ul>
-            <li><a href= "index.html">Hauptseite</a></li>
-            <li><a href= "Steckbrief.html">Über mich</a></li>
-            <li><a href= "Kontakt.html">Kontakt</a></li>
-        </ul>
-    </nav>
-</header>
-<main>
-<h1>Kontaktmöglichkeiten</h1>
-<h2>E-Mail</h2>
-<p>jonas.kopp@hs-furtwangen.de</p>
-<p>jonas-kopp.1@web.de</p>
-<h2>Instagram</h2>
-<p>Mein <a href= "https://www.instagram.com/therealkorpus/">Instagram-Profil</a>.</p>
-<h2>Facebook</h2>
-<p>Mein <a href= "https://youtu.be/wnedkVrgFF0">Facebook-Profil</a></p>
-<h2>Discord</h2>
-<p> Morpheus bzw. #6915</p>
-<img src="zack_gal.gif" alt="Mein Bruder aus Hollywood">
-</main>
-<footer>
-    <p><i>Sicher werden wir uns aber auch mal persönlich in der HFU oder in Furtwangen begegnen!</i> :)</p>
-</footer>
+    <header>
+        <a id="logo" href="#">
+            <img src="media/logo.png" alt="Logo Platzhalter">
+        </a>
+
+        <nav>
+            <ul>
+                <li class="nav-item"><a href="index.html">Hauptseite</a></li>
+                <li class="nav-item"><a href="steckbrief.html">Mehr Infos über mich</a></li>
+                <li class="nav-item active"><a href="kontakt.html">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="contact">
+            <h1>Kontaktmöglichkeiten</h1>
+            <img src="media/zack_gal.gif" alt="Mein Bruder aus Hollywood">
+            <h3>E-Mail</h3>
+            <p><a href="mailto:jonas.kopp@hs-furtwangen.de">jonas.kopp@hs-furtwangen.de</a></p>
+            <p><a href="mailto:jonas-kopp.1@web.de">jonas-kopp.1@web.de</a></p>
+            <h3>Instagram</h3>
+            <p>Mein <a href="https://www.instagram.com/therealkorpus/">Instagram-Profil</a>.</p>
+            <h3>Facebook</h3>
+            <p>Mein <a href="https://www.youtube.com/watch?v=wnedkVrgFF0">Facebook-Profil</a></p>
+            <h3>Discord</h3>
+            <p> Morpheus bzw. #6915</p>
+
+            <!-- CONTACT -->
+            <h3>Kontakt</h3>
+            <form id="contact-form">
+                <input type="email" tabindex="1" placeholder="E-Mail"><br>
+                <input type="text" tabindex="2" placeholder="Betreff"><br>
+                <textarea tabindex="3" placeholder="Nachricht"></textarea><br>
+                <input class="button" type="submit">
+            </form>
+        </section>
+    </main>
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy 2020 Jonas Kopp a.k.a. Moripho</p>
+    </footer>
 </body>
 
 </html>
