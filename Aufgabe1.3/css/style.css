@@ -131,10 +131,12 @@ header>nav {
 /* Landing Page *******************************/
 
 #home {
-    background: url('../media/banner.png');
+    background-image: url('../media/banner.png');
     background-position: center center;
     background-size: cover;
     background-attachment: fixed;
+    background-repeat: no-repeat;
+    position: relative;
 }
 
 #home h1 {
@@ -152,7 +154,11 @@ header>nav {
 
 #home #pfeilbutton {
     width: 32px;
-    margin-top: 520px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 30px;
     opacity: 0.8;
     filter: invert(1);
 }
@@ -270,8 +276,9 @@ header>nav {
     #projects {
         grid-template-columns: repeat(1, 1fr);
     }
-    #home h1 {
-        opacity: 1;
+    #home {
+        background-image: url('../media/mobile_bg.png');
+        height: 100vh;
     }
     #home h2 {
         display: none;
