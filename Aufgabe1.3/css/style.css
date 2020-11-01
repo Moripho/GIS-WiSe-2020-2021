@@ -1,3 +1,7 @@
+html{
+    scroll-behavior: smooth;
+}
+
 body {
     background: url('../media/bg.png');
     margin: 0;
@@ -220,10 +224,6 @@ header > nav {
     font-family: sans-serif;
     font-size: 16px;
 }
-
-
-
-
 
 /* STECKBRIEF *******************************/
 
