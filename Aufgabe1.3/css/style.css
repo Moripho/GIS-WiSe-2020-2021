@@ -67,7 +67,7 @@ hr {
     height: 3px;
     background: black;
     border: 0;
-    margin: 0 auto 40 auto;
+    margin: 0 auto 40px auto;
 }
 
 #stockach, #soundtrack video {
@@ -184,19 +184,14 @@ header>nav {
 
 /* ABOUT *******************************/
 
-#projects ul {
-    padding: 0;
-}
-
-#projects ul li {
-    width: 33.3%;
-    float: left;
-    margin-bottom: 15px;
-
+#projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
 
 #projects img {
-    height: 170px;
+    width: 100%;
     border-radius: 5px;
 }
 
@@ -238,4 +233,40 @@ header>nav {
 
 .social-icon img {
     width: 50px;
+}
+
+@media screen and (max-width: 1024px) {
+    section {
+        min-height: 0;
+    }
+    #projects {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    body{
+        max-width: 600px;
+    }
+    
+    section:not(#home) {
+        width: 85%;
+    }
+    h1 {
+        font-size: 60px;
+    }
+    h2 {
+        font-size: 40px;
+    }
+    h3 {
+        font-size: 20px;
+    }
+
+    #about img{
+        width: 100%;
+    }
+
+    #projects {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
