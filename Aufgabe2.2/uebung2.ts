@@ -1,8 +1,10 @@
 namespace AufgabeZwei {
+    //Aufgabe 1 a)
     function min(..._uebergabeParameter: number[]): number { // Übergabeparameter werden in einem Number-Array abgelegt
         return Math.min(..._uebergabeParameter);               // Das entstandene Number-Array wird für die Math-min-Funktion in seine einzelnen Werte aufgesplittet
     }
 
+    //Aufgabe 1 b)
     function isEven(_randomZahl: number): boolean {
         if (_randomZahl === 0) {
             return true;
@@ -15,6 +17,7 @@ namespace AufgabeZwei {
         }
     }
 
+    //Aufgabe 1 c)
     interface Student {
         vorname: string;
         nachname: string;
@@ -45,6 +48,7 @@ namespace AufgabeZwei {
     studentenListe.forEach(currentStudent => showInfo(currentStudent));
     */
 
+    //Aufgabe 2 a)
     function backwards(_numberArray: number[]): number[] {
         let backwardsArray: number[];
         for (let i: number = 0; i < _numberArray.length - 1; i++) {
@@ -56,6 +60,7 @@ namespace AufgabeZwei {
         return _numberArray.reverse()*/
     }
 
+    //Aufgabe 2 b)
     function join(..._uebergabeArrays: number[][]): number[] {  // Übergabeparameter Array von Number-Arrays wird erstellt
         let joinedArray: number[];
         for (let numArray of _uebergabeArrays) {
@@ -66,6 +71,7 @@ namespace AufgabeZwei {
         return _uebergabeArrays.flat()*/
     }
 
+    //Aufgabe 2 c)
     function split(_randomArray: number[], indexOne: number, indexTwo: number): number[] {
         if (indexOne >= 0 && indexOne < indexTwo && indexTwo < _randomArray.length) {
             let splitArray: number[];
