@@ -1,9 +1,11 @@
 "use strict";
 var AufgabeZwei;
 (function (AufgabeZwei) {
+    //Aufgabe 1 a)
     function min(..._uebergabeParameter) {
         return Math.min(..._uebergabeParameter); // Das entstandene Number-Array wird für die Math-min-Funktion in seine einzelnen Werte aufgesplittet
     }
+    //Aufgabe 1 b)
     function isEven(_randomZahl) {
         if (_randomZahl === 0) {
             return true;
@@ -32,6 +34,7 @@ var AufgabeZwei;
     /* alternativ geht auch:
     studentenListe.forEach(currentStudent => showInfo(currentStudent));
     */
+    //Aufgabe 2 a)
     function backwards(_numberArray) {
         let backwardsArray;
         for (let i = 0; i < _numberArray.length - 1; i++) {
@@ -41,6 +44,7 @@ var AufgabeZwei;
         /* alternativ geht auch:
         return _numberArray.reverse()*/
     }
+    //Aufgabe 2 b)
     function join(..._uebergabeArrays) {
         let joinedArray;
         for (let numArray of _uebergabeArrays) {
@@ -50,6 +54,7 @@ var AufgabeZwei;
         /* alternativ geht auch:
         return _uebergabeArrays.flat()*/
     }
+    //Aufgabe 2 c)
     function split(_randomArray, indexOne, indexTwo) {
         if (indexOne >= 0 && indexOne < indexTwo && indexTwo < _randomArray.length) {
             let splitArray;

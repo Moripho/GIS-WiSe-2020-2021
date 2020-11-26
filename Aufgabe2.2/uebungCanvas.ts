@@ -1,6 +1,18 @@
 let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
 let context: CanvasRenderingContext2D = canvas.getContext("2d");
 
+//Aufgabe 3 a)
+context.beginPath();
+context.rect(0, 500, 1000, 200);
+context.fillStyle = "yellow";
+context.fill();
+context.lineWidth = 20;
+context.strokeStyle = "black";
+context.stroke();
+
+
+
+//Aufgabe 3 b) + c)
 class Rect {
     width: number;
     height: number;
@@ -18,18 +30,20 @@ class Rect {
 
 }
 
-function drawRect(rect: Rect) {
-    console.log(rect);
+//Aufgabe 3 d)
+function drawRect(_rect: Rect) {
+    console.log(_rect);
     context.beginPath();
-    context.rect(rect.x, rect.y, rect.width, rect.height);
-    context.fillStyle = rect.color;
+    context.rect(_rect.x, _rect.y, _rect.width, _rect.height);
+    context.fillStyle = _rect.color;
     context.fill();
-    
+
 }
 
 // drawRect(new Rect());
 
-let rectArray: Rect[] = [new Rect(), new Rect( undefined, undefined, undefined, undefined, "#00ff00"), new Rect(50, 50, 150, 140, "#ff0000")];
+//Aufgabe 3 e)
+let rectArray: Rect[] = [new Rect(), new Rect(undefined, undefined, undefined, undefined, "#00ff00"), new Rect(50, 50, 150, 140, "#ff0000")]; //Testwerte
 
 rectArray.forEach(rect => drawRect(rect));
 
