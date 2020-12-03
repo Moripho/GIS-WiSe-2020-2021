@@ -72,7 +72,7 @@ class Arm extends Rect {
     }
 
     drawOption(context: CanvasRenderingContext2D): void {
-        drawRect(context, this.posX, this.posY, this.width / 2, this.height, this.fillStyle);
+        drawRect(context, this.posX, this.posY, this.width / 2, this.height / 2, this.fillStyle);
         drawRect(context, this.posX, this.posY - 187, this.width / 2, this.height / 2, this.fillStyle);
     }
 }
@@ -81,19 +81,15 @@ class Leg extends Rect {
     constructor(_fillStyle: string) {
         super(305, 522, 65, 238, _fillStyle);
     }
-    draw(context: CanvasRenderingContext2D, torsoWidth: number, torsoPosX: number): void {
-        drawRect(context, this.posX, this.posY, this.width, this.height, this.fillStyle);
-        drawRect(context, torsoPosX + torsoWidth - this.width, this.posY, this.width, this.height, this.fillStyle);
-    }
 
-    drawMain(torsoWidth: number): void {
+    drawMain(): void {
         drawRect(mainContext, this.posX, this.posY, this.width, this.height, this.fillStyle);
         drawRect(mainContext, this.posX + 125, this.posY, this.width, this.height, this.fillStyle);
     }
 
     drawOption(context: CanvasRenderingContext2D): void {
-        drawRect(context, this.posX - 195, this.posY, this.width / 2, this.height, this.fillStyle);
-        drawRect(context, this.posX + 125, this.posY / 6.34, this.width / 2, this.height / 2, this.fillStyle);
+        drawRect(context, this.posX - 245, this.posY - 487, this.width / 2, this.height / 2, this.fillStyle);
+        drawRect(context, this.posX - 185, this.posY - 487, this.width / 2, this.height / 2, this.fillStyle);
     }
 }
 
@@ -107,6 +103,7 @@ class Character {
         this.head.drawMain();
         this.torso.drawMain();
         this.arm.drawMain();
+        this.leg.drawMain();
     }
 }
 
