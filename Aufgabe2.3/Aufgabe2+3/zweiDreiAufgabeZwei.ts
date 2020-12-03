@@ -73,7 +73,7 @@ class Arm extends Rect {
 
     drawOption(context: CanvasRenderingContext2D): void {
         drawRect(context, this.posX - 82, this.posY - 187, this.width / 2.5, this.height / 2, this.fillStyle);
-        drawRect(context, this.posX + 20, this.posY - 187, this.width / 2., this.height / 2, this.fillStyle);
+        drawRect(context, this.posX + 20, this.posY - 187, this.width / 2.5, this.height / 2, this.fillStyle);
     }
 }
 
