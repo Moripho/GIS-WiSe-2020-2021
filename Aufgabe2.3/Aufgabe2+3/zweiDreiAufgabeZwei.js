@@ -74,10 +74,18 @@ class Leg extends Rect {
 }
 class Character {
     draw() {
-        this.head.drawMain();
-        this.torso.drawMain();
-        this.arm.drawMain();
-        this.leg.drawMain();
+        if (this.torso == undefined && this.arm == undefined && this.leg == undefined) {
+            this.head.drawMain();
+        }
+        else if (this.head == undefined && this.arm == undefined && this.leg == undefined) {
+            this.torso.drawMain();
+        }
+        else if (this.head == undefined && this.torso == undefined && this.leg == undefined) {
+            this.arm.drawMain();
+        }
+        else if (this.head == undefined && this.torso == undefined && this.arm == undefined) {
+            this.leg.drawMain();
+        }
     }
 }
 let character = new Character();
