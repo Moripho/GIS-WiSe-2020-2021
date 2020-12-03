@@ -76,7 +76,7 @@ namespace AufgabeZwei {
         if (indexOne >= 0 && indexOne < indexTwo && indexTwo < _randomArray.length) {
             let splitArray: number[];
             _randomArray.forEach((num, index) => { // num = Numberwert index = Index von Numberwert
-                if (index >= indexOne && index <= indexTwo){
+                if (index >= indexOne && index <= indexTwo) {
                     splitArray.push(num);
                 }
             });

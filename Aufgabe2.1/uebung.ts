@@ -1,4 +1,3 @@
-/*
 let x: string = "Hallo";
 let func: () => void = () => console.log();
 
@@ -22,7 +21,7 @@ function func2(): void{
 function func3(): void{
     x = "Test";
 }
-*/
+
 let a: number = 2;
 let b: number = 6;
 

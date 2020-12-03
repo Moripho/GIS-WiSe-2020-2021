@@ -1,29 +1,23 @@
 "use strict";
-/*
-let x: string = "Hallo";
-let func: () => void = () => console.log();
-
+let x = "Hallo";
+let func = () => console.log();
 console.log(x); // Hallo
 func1(x); // Bla
 console.log(x); // Hallo
 func2(); // Blubb
 func3();
 console.log(x); // Test
-
-function func1(y: string): void{
+function func1(y) {
     y = "Bla";
     console.log(y);
 }
-
-function func2(): void{
-    let x: string = "Blubb";
+function func2() {
+    let x = "Blubb";
     console.log(x);
 }
-
-function func3(): void{
+function func3() {
     x = "Test";
 }
-*/
 let a = 2;
 let b = 6;
 function multiply(a, b) {

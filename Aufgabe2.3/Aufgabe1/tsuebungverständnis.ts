@@ -1,4 +1,3 @@
-"use strict";
 let box = document.querySelector(".box");
 createP();
 function createP() {
@@ -6,9 +5,11 @@ function createP() {
     p.innerText = "Neuer Paragraph.";
     box.appendChild(p);
     p.addEventListener("click", createP);
+
 }
+
 window.addEventListener("load", handleLoad);
-function handleLoad(_event) {
+
+function handleLoad(_event: Event): void {
     console.log(_event);
-}
-//# sourceMappingURL=uebung3.js.map
+} 
