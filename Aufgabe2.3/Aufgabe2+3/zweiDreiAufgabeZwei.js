@@ -55,8 +55,8 @@ class Arm extends Rect {
         drawRect(mainContext, this.posX + 190, this.posY, this.width, this.height, this.fillStyle);
     }
     drawOption(context) {
-        drawRect(context, this.posX - 82, this.posY - 167, this.width / 2.5, this.height / 2, this.fillStyle);
-        drawRect(context, this.posX + 20, this.posY - 167, this.width / 2.5, this.height / 2, this.fillStyle);
+        drawRect(context, this.posX - 82, this.posY - 147, this.width / 2.5, this.height / 2, this.fillStyle);
+        drawRect(context, this.posX + 20, this.posY - 147, this.width / 2.5, this.height / 2, this.fillStyle);
     }
 }
 class Leg extends Rect {
