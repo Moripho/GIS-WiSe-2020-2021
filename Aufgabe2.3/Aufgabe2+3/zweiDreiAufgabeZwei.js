@@ -110,7 +110,7 @@ function registerArms() {
             character.draw();
         });
     });
-    torsosArray.forEach((arm, index) => arm.drawOption(optionContextArray[index]));
+    armsArray.forEach((arm, index) => arm.drawOption(optionContextArray[index]));
 }
 function registerLegs() {
     optionCanvasArray.forEach((canvas, index) => {
@@ -119,6 +119,6 @@ function registerLegs() {
             character.draw();
         });
     });
-    torsosArray.forEach((leg, index) => leg.drawOption(optionContextArray[index]));
+    legsArray.forEach((leg, index) => leg.drawOption(optionContextArray[index]));
 }
 //# sourceMappingURL=zweiDreiAufgabeZwei.js.map

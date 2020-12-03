@@ -144,7 +144,7 @@ function registerArms(): void {
         });
     });
 
-    torsosArray.forEach((arm, index) => arm.drawOption(optionContextArray[index]));
+    armsArray.forEach((arm, index) => arm.drawOption(optionContextArray[index]));
 }
 
 function registerLegs(): void {
@@ -155,6 +155,6 @@ function registerLegs(): void {
         });
     });
 
-    torsosArray.forEach((leg, index) => leg.drawOption(optionContextArray[index]));
+    legsArray.forEach((leg, index) => leg.drawOption(optionContextArray[index]));
 }
 
