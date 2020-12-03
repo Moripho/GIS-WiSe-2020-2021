@@ -9,7 +9,7 @@ class Head {
     }
     drawMain() {
         mainContext.beginPath();
-        mainContext.arc(350, 113, 100, 0, 2 * Math.PI, false);
+        mainContext.arc(350, 100, 100, 0, 2 * Math.PI, false);
         mainContext.fillStyle = this.fillStyle;
         mainContext.fill();
     }
@@ -37,39 +37,39 @@ class Rect {
 }
 class Torso extends Rect {
     constructor(_fillStyle) {
-        super(305, 222, 190, 300, _fillStyle);
+        super(260, 200, 180, 260, _fillStyle);
     }
     drawMain() {
         drawRect(mainContext, this.posX, this.posY, this.width, this.height, this.fillStyle);
     }
     drawOption(context) {
-        drawRect(context, this.posX - 245, this.posY - 187, this.width / 2, this.height / 2, this.fillStyle);
+        drawRect(context, this.posX - 200, this.posY - 157, this.width / 2, this.height / 2, this.fillStyle);
     }
 }
 class Arm extends Rect {
     constructor(_fillStyle) {
-        super(100, 222, 205, 55, _fillStyle);
+        super(39, 200, 221, 51, _fillStyle);
     }
     drawMain() {
         drawRect(mainContext, this.posX, this.posY, this.width, this.height, this.fillStyle);
-        drawRect(mainContext, this.posX + 190, this.posY, this.width, this.height, this.fillStyle);
+        drawRect(mainContext, this.posX + 401, this.posY, this.width, this.height, this.fillStyle);
     }
     drawOption(context) {
-        drawRect(context, this.posX - 82, this.posY - 147, this.width / 2.5, this.height / 2, this.fillStyle);
-        drawRect(context, this.posX + 20, this.posY - 147, this.width / 2.5, this.height / 2, this.fillStyle);
+        drawRect(context, this.posX - 10, this.posY - 127, this.width / 3, this.height / 2, this.fillStyle);
+        drawRect(context, this.posX + 80, this.posY - 127, this.width / 3, this.height / 2, this.fillStyle);
     }
 }
 class Leg extends Rect {
     constructor(_fillStyle) {
-        super(305, 522, 65, 238, _fillStyle);
+        super(260, 460, 65, 240, _fillStyle);
     }
     drawMain() {
         drawRect(mainContext, this.posX, this.posY, this.width, this.height, this.fillStyle);
         drawRect(mainContext, this.posX + 125, this.posY, this.width, this.height, this.fillStyle);
     }
     drawOption(context) {
-        drawRect(context, this.posX - 245, this.posY - 487, this.width / 2, this.height / 2, this.fillStyle);
-        drawRect(context, this.posX - 185, this.posY - 487, this.width / 2, this.height / 2, this.fillStyle);
+        drawRect(context, this.posX - 200, this.posY - 415, this.width / 2, this.height / 2, this.fillStyle);
+        drawRect(context, this.posX - 130, this.posY - 415, this.width / 2, this.height / 2, this.fillStyle);
     }
 }
 class Character {
