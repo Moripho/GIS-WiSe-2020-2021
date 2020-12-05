@@ -1,11 +1,13 @@
 namespace characterCreation {
+    
     let mainCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("characterGenerator");
     let mainContext: CanvasRenderingContext2D = mainCanvas.getContext("2d");
 
+    let optionCanvasArray: HTMLCanvasElement[] = <HTMLCanvasElement[]>[...document.querySelectorAll(".optionCanvas")];
+    let optionContextArray: CanvasRenderingContext2D[] = optionCanvasArray.map(canvas => canvas.getContext("2d"));
+
     let resultButton: HTMLElement = document.getElementById("resultButton");
-
-
-
+  
     export class Head {
         fillStyle: string;
 
@@ -117,6 +119,64 @@ namespace characterCreation {
                 resultButton.addEventListener("click", () => location.href = "index.html");
             }
         }
+    }
+
+    
+
+    window.addEventListener("load", () => {
+        const storageItem: string = sessionStorage.getItem("character");
+        if (storageItem) {
+            const storageCharacter: Character = JSON.parse(storageItem) as Character;
+            Object.assign(character.head, storageCharacter.head);
+            Object.assign(character.torso, storageCharacter.torso);
+            Object.assign(character.arms, storageCharacter.arms);
+            Object.assign(character.legs, storageCharacter.legs);
+        }
+        character.draw();
+    });
+
+    function registerHeads(): void {
+        optionCanvasArray.forEach((canvas, index) => {
+            canvas.addEventListener("click", () => {
+                character.head = headsArray[index];
+                character.draw();
+            });
+        });
+
+        headsArray.forEach((head, index) => head.drawOption(optionContextArray[index]));
+    }
+
+    function registerTorsos(): void {
+        optionCanvasArray.forEach((canvas, index) => {
+            canvas.addEventListener("click", () => {
+                character.torso = torsosArray[index];
+                character.draw();
+            });
+        });
+
+        torsosArray.forEach((torso, index) => torso.drawOption(optionContextArray[index]));
+    }
+
+    function registerArms(): void {
+        optionCanvasArray.forEach((canvas, index) => {
+            canvas.addEventListener("click", () => {
+                character.arms = armsArray[index];
+                character.draw();
+            });
+        });
+
+        armsArray.forEach((arm, index) => arm.drawOption(optionContextArray[index]));
+    }
+
+    function registerLegs(): void {
+        optionCanvasArray.forEach((canvas, index) => {
+            canvas.addEventListener("click", () => {
+                character.legs = legsArray[index];
+                character.draw();
+            });
+        });
+
+        legsArray.forEach((leg, index) => leg.drawOption(optionContextArray[index]));
     }
 
 }

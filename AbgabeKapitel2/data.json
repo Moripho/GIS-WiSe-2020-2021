@@ -1,0 +1,60 @@
+{
+    "headsArray": [
+        {
+            "fillStyle": "red"
+        },
+        {
+            "fillStyle": "blue"
+        },
+        {
+            "fillStyle": "green"
+        }
+    ],
+    "torsosArray": [
+        {
+            "fillStyle": "red"
+        },
+        {
+            "fillStyle": "blue"
+        },
+        {
+            "fillStyle": "green"
+        }
+    ],
+    "armsArray": [
+        {
+            "fillStyle": "red"
+        },
+        {
+            "fillStyle": "blue"
+        },
+        {
+            "fillStyle": "green"
+        }
+    ],
+    "legsArray": [
+        {
+            "fillStyle": "red"
+        },
+        {
+            "fillStyle": "blue"
+        },
+        {
+            "fillStyle": "green"
+        }
+    ],
+    "character": {
+        "head": {
+            "fillStyle": "white"
+        },
+        "torso": {
+            "fillStyle": "white"
+        },
+        "arms": {
+            "fillStyle": "white"
+        },
+        "legs": {
+            "fillStyle": "white"
+        }
+    }
+}
