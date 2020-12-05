@@ -29,18 +29,19 @@
         <a class="linkButton" href="head.html">Kopf</a>
         <a class="linkButton" href="torso.html">Torso</a>
         <a class="linkButton" href="arms.html">Arme</a>
-        <a class="linkButton" href="legs.html">Beine</a>
+        <a class="linkButton disabled" href="legs.html">Beine</a>
+        <div class="linkButton disabled" id="resultButton">Ergebnis</div>
     </div>
 
     <footer>
         <p>&copy; 2020 Jonas Kopp a.k.a. Moripho</p>
     </footer>
 
-    <script src="zweiDreiAufgabeZwei.js"></script>
-    <script>registerHeads()</script>
-    <!-- Skripttag mit Funktionsaufruf (registerHeads) fürs Laden der Eventlistener + Zeichnen der Köpfe -->
-    <!-- <script src="data.js"></script> -->
+    <script src="script.js"></script>
 
+    <script src="data.js"></script>
+
+    <script>registerLegs()</script>
 
 
 

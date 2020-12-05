@@ -50,10 +50,14 @@ canvas {
     font-size: 20px;
     cursor: pointer;
     margin: 5px 30px;
-    width: 50px;
+    width: 75px;
     color: white;
 }
 
+.linkButton.disabled {
+    background: #666666;
+    cursor: default;
+}
 #characterGenerator {
     margin-top: 81px;
 }
@@ -66,6 +70,10 @@ canvas {
 
 #optionsContainer, #characterGenerator {
     display: inline-block;
+}
+
+.optionCanvas {
+    cursor: pointer;
 }
 
 .optionCanvas:not(:last-child) {
