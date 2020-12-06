@@ -29,6 +29,11 @@ canvas {
     background-color: white;
 }
 
+footer {
+    color: white;
+
+}
+
 .headOptions {
     background: #5744b8;
     padding: 5px 10px;
@@ -59,10 +64,6 @@ canvas {
     cursor: default;
 }
 
-#serverMessage {
-    display: inline-block;
-}
-
 #characterGenerator {
     margin-top: 81px;
 }
@@ -73,7 +74,7 @@ canvas {
     width: 250px;
 }
 
-#optionsContainer, #characterGenerator {
+#optionsContainer{
     display: inline-block;
 }
 
@@ -111,47 +112,4 @@ header {
 
 #logo img {
     width: 100%;
-}
-
-@media screen and (max-width: 1024px) {
-    section {
-        min-height: 0;
-    }
-    h1 {
-        font-size: 25px;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    header {
-        height: 80px;
-    }
-    h1 {
-        font-size: 15px;
-    }
-    h2 {
-        font-size: 35px;
-    }
-    h3 {
-        font-size: 20px;
-    }
-    .nav-item a {
-        font-size: 15px;
-    }
-    #about img {
-        width: 100%;
-    }
-    #projects {
-        grid-template-columns: repeat(1, 1fr);
-    }
-    #home {
-        background-image: url('../media/mobile_bg.png');
-        height: 100vh;
-    }
-    #home h2 {
-        display: none;
-    }
-    #steckbrief img, #zach {
-        width: 100%;
-    }
 }

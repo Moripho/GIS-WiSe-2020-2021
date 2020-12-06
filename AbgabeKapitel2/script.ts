@@ -203,7 +203,7 @@ namespace characterCreation {
         const res: Response = await fetch(url + "?" + query.toString())
         const answer: ServerMeldung = await res.json();
 
-        displayStatus.innerText = "Server: " + await answer.message || await answer.error;
+        displayStatus.innerText = "Server: " + (await answer.message || await answer.error);
         displayStatus.style.color = await answer.message ? "#19e619" : "#a02128";
     }
 

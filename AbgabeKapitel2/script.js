@@ -154,7 +154,7 @@ var characterCreation;
         });
         const res = await fetch(url + "?" + query.toString());
         const answer = await res.json();
-        displayStatus.innerText = "Server: " + await answer.message || await answer.error;
+        displayStatus.innerText = "Server: " + (await answer.message || await answer.error);
         displayStatus.style.color = await answer.message ? "#19e619" : "#a02128";
     }
     function registerHeads() {
