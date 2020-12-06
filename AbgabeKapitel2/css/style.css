@@ -58,6 +58,11 @@ canvas {
     background: #666666;
     cursor: default;
 }
+
+#serverMessage {
+    display: inline-block;
+}
+
 #characterGenerator {
     margin-top: 81px;
 }

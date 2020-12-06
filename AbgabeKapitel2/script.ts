@@ -8,6 +8,35 @@ namespace characterCreation {
 
     let resultButton: HTMLElement = document.getElementById("resultButton");
 
+    let character: Character;
+    let headsArray: Head[];
+    let torsosArray: Torso[];
+    let armsArray: Arms[];
+    let legsArray: Legs[];
+
+    class Rect {
+        posX: number;
+        posY: number;
+        width: number;
+        height: number;
+        fillStyle: string;
+
+        constructor(_posX: number, _posY: number, _width: number, _height: number, _fillStyle: string) {
+            this.posX = _posX;
+            this.posY = _posY;
+            this.width = _width;
+            this.height = _height;
+            this.fillStyle = _fillStyle;
+        }
+    }
+
+    function drawRect(context: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, fillStyle: string): void {
+        context.beginPath();
+        context.rect(x, y, width, height);
+        context.fillStyle = fillStyle;
+        context.fill();
+    }
+
     export class Head {
         fillStyle: string;
 
@@ -26,30 +55,6 @@ namespace characterCreation {
             context.fillStyle = this.fillStyle;
             context.fill();
         }
-    }
-
-    function drawRect(context: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, fillStyle: string): void {
-        context.beginPath();
-        context.rect(x, y, width, height);
-        context.fillStyle = fillStyle;
-        context.fill();
-    }
-
-    class Rect {
-        posX: number;
-        posY: number;
-        width: number;
-        height: number;
-        fillStyle: string;
-
-        constructor(_posX: number, _posY: number, _width: number, _height: number, _fillStyle: string) {
-            this.posX = _posX;
-            this.posY = _posY;
-            this.width = _width;
-            this.height = _height;
-            this.fillStyle = _fillStyle;
-        }
-
     }
 
     export class Torso extends Rect {
@@ -114,26 +119,93 @@ namespace characterCreation {
             this.torso.drawMain();
             this.arms.drawMain();
             this.legs.drawMain();
-            if (resultButton && this.head.fillStyle !== "white" && this.torso.fillStyle !== "white" && this.arms.fillStyle !== "white" && this.legs.fillStyle !== "white") {
+            if (resultButton && this.isFullyAssembled()) {
                 resultButton.classList.remove("disabled");
                 resultButton.addEventListener("click", () => location.href = "index.html");
             }
         }
+
+        isFullyAssembled(): boolean {
+            return this.head.fillStyle !== "white" && 
+                    this.torso.fillStyle !== "white" && 
+                    this.arms.fillStyle !== "white" && 
+                    this.legs.fillStyle !== "white";
+        }
     }
 
-
-
-    window.addEventListener("load", () => {
-        const storageItem: string = sessionStorage.getItem("character");
-        if (storageItem) {
-            const storageCharacter: Character = JSON.parse(storageItem) as Character;
-            Object.assign(character.head, storageCharacter.head);
-            Object.assign(character.torso, storageCharacter.torso);
-            Object.assign(character.arms, storageCharacter.arms);
-            Object.assign(character.legs, storageCharacter.legs);
-        }
+    window.addEventListener("load", async () => {
+        await loadCharacterData();
         character.draw();
+
+        let currentSite: string = location.pathname.split("/").pop().replaceAll(".html", "");
+        switch (currentSite) {
+            case "head":
+                registerHeads();
+                break;
+            case "torso":
+                registerTorsos();
+                break;
+            case "arms":
+                registerArms();
+                break;
+            case "legs":
+                registerLegs();
+                break;
+            case "index": 
+                if (character.isFullyAssembled()) sendCharacterToServer();
+        }
     });
+
+    interface ServerResponse {
+        headsArray: Head[];
+        torsosArray: Torso[];
+        armsArray: Arms[];
+        legsArray: Legs[];
+        character: Character;
+    }
+
+    async function loadCharacterData(): Promise<void> {
+        const response: Response = await fetch("https://raw.githubusercontent.com/Moripho/GIS-WiSe-2020-2021/main/AbgabeKapitel2/data.json");
+        const data: ServerResponse = await response.json();
+        const storageItem: string = sessionStorage.getItem("character");
+
+        headsArray = data.headsArray.map(head => new Head(head.fillStyle));
+        torsosArray = data.torsosArray.map(torso => new Torso(torso.fillStyle));
+        armsArray = data.armsArray.map(arms => new Arms(arms.fillStyle));
+        legsArray = data.legsArray.map(legs => new Legs(legs.fillStyle));
+
+        const charInfo: Character = storageItem ? (JSON.parse(storageItem) as Character) : data.character;
+
+        character = new Character(
+            new Head(charInfo.head.fillStyle), 
+            new Torso(charInfo.torso.fillStyle),
+            new Arms(charInfo.arms.fillStyle),
+            new Legs(charInfo.legs.fillStyle)
+        );
+    }
+
+    interface ServerMeldung {
+        error: string;
+        message: string;
+    }
+
+    async function sendCharacterToServer(): Promise<void> {
+        const displayStatus: HTMLElement = document.getElementById("serverMessage");
+        
+        const url: string = "https://gis-communication.herokuapp.com";
+        const query: URLSearchParams = new URLSearchParams(<any>{
+            head: JSON.stringify(character.head),
+            torso: JSON.stringify(character.torso),
+            arms: JSON.stringify(character.arms),
+            legs: JSON.stringify(character.legs)
+        });
+
+        const res: Response = await fetch(url + "?" + query.toString())
+        const answer: ServerMeldung = await res.json();
+
+        displayStatus.innerText = "Server: " + await answer.message || await answer.error;
+        displayStatus.style.color = await answer.message ? "#19e619" : "#a02128";
+    }
 
     function registerHeads(): void {
         optionCanvasArray.forEach((canvas, index) => {
@@ -178,35 +250,4 @@ namespace characterCreation {
 
         legsArray.forEach((leg, index) => leg.drawOption(optionContextArray[index]));
     }
-
-    async function dataToServer(_url: string): Promise<void> {
-        let browserCacheData: JSON = JSON.parse(sessionStorage.getItem());
-        // Code aus Kapitel 2 Praktikumsaufgabe 5:
-        let query: URLSearchParams = new URLSearchParams(<any>browserCacheData);
-        url = url + "?" + query.toString();
-        await fetch(url);
-
-        displayServerAnswer(text);
-    }
-
-    interface ServerMeldung {
-        errorMessage: string;
-        confirmation: string;
-    }
-
-    function displayServerAnswer(_serverAnswer: ServerMeldung) {
-        let displayStatus: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("serverMessage");
-        if (_serverAnswer.confirmation == undefined) {
-            displayStatus.textContent = "Server: " + _serverAnswer.confirmation;
-            displayStatus.style.color = "19e619";
-        }
-
-        else if (_serverAnswer.errorMessage == undefined) {
-            displayStatus.textContent = "Server: " + _serverAnswer.errorMessage;
-            displayStatus.style.color = "#a02128";
-        }
-    }
-
-    // https://raw.githubusercontent.com/Moripho/GIS-WiSe-2020-2021/main/AbgabeKapitel2/data.json als url im fetch
-    // die ganzen Dateien müssen noch konvertiert werden
 }

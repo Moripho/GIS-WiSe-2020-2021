@@ -6,6 +6,26 @@ var characterCreation;
     let optionCanvasArray = [...document.querySelectorAll(".optionCanvas")];
     let optionContextArray = optionCanvasArray.map(canvas => canvas.getContext("2d"));
     let resultButton = document.getElementById("resultButton");
+    let character;
+    let headsArray;
+    let torsosArray;
+    let armsArray;
+    let legsArray;
+    class Rect {
+        constructor(_posX, _posY, _width, _height, _fillStyle) {
+            this.posX = _posX;
+            this.posY = _posY;
+            this.width = _width;
+            this.height = _height;
+            this.fillStyle = _fillStyle;
+        }
+    }
+    function drawRect(context, x, y, width, height, fillStyle) {
+        context.beginPath();
+        context.rect(x, y, width, height);
+        context.fillStyle = fillStyle;
+        context.fill();
+    }
     class Head {
         constructor(_fillStyle) {
             this.fillStyle = _fillStyle;
@@ -24,21 +44,6 @@ var characterCreation;
         }
     }
     characterCreation.Head = Head;
-    function drawRect(context, x, y, width, height, fillStyle) {
-        context.beginPath();
-        context.rect(x, y, width, height);
-        context.fillStyle = fillStyle;
-        context.fill();
-    }
-    class Rect {
-        constructor(_posX, _posY, _width, _height, _fillStyle) {
-            this.posX = _posX;
-            this.posY = _posY;
-            this.width = _width;
-            this.height = _height;
-            this.fillStyle = _fillStyle;
-        }
-    }
     class Torso extends Rect {
         constructor(_fillStyle) {
             super(260, 200, 180, 260, _fillStyle);
@@ -92,24 +97,66 @@ var characterCreation;
             this.torso.drawMain();
             this.arms.drawMain();
             this.legs.drawMain();
-            if (resultButton && this.head.fillStyle !== "white" && this.torso.fillStyle !== "white" && this.arms.fillStyle !== "white" && this.legs.fillStyle !== "white") {
+            if (resultButton && this.isFullyAssembled()) {
                 resultButton.classList.remove("disabled");
                 resultButton.addEventListener("click", () => location.href = "index.html");
             }
         }
+        isFullyAssembled() {
+            return this.head.fillStyle !== "white" &&
+                this.torso.fillStyle !== "white" &&
+                this.arms.fillStyle !== "white" &&
+                this.legs.fillStyle !== "white";
+        }
     }
     characterCreation.Character = Character;
-    window.addEventListener("load", () => {
-        const storageItem = sessionStorage.getItem("character");
-        if (storageItem) {
-            const storageCharacter = JSON.parse(storageItem);
-            Object.assign(character.head, storageCharacter.head);
-            Object.assign(character.torso, storageCharacter.torso);
-            Object.assign(character.arms, storageCharacter.arms);
-            Object.assign(character.legs, storageCharacter.legs);
-        }
+    window.addEventListener("load", async () => {
+        await loadCharacterData();
         character.draw();
+        let currentSite = location.pathname.split("/").pop().replaceAll(".html", "");
+        switch (currentSite) {
+            case "head":
+                registerHeads();
+                break;
+            case "torso":
+                registerTorsos();
+                break;
+            case "arms":
+                registerArms();
+                break;
+            case "legs":
+                registerLegs();
+                break;
+            case "index":
+                if (character.isFullyAssembled())
+                    sendCharacterToServer();
+        }
     });
+    async function loadCharacterData() {
+        const response = await fetch("https://raw.githubusercontent.com/Moripho/GIS-WiSe-2020-2021/main/AbgabeKapitel2/data.json");
+        const data = await response.json();
+        const storageItem = sessionStorage.getItem("character");
+        headsArray = data.headsArray.map(head => new Head(head.fillStyle));
+        torsosArray = data.torsosArray.map(torso => new Torso(torso.fillStyle));
+        armsArray = data.armsArray.map(arms => new Arms(arms.fillStyle));
+        legsArray = data.legsArray.map(legs => new Legs(legs.fillStyle));
+        const charInfo = storageItem ? JSON.parse(storageItem) : data.character;
+        character = new Character(new Head(charInfo.head.fillStyle), new Torso(charInfo.torso.fillStyle), new Arms(charInfo.arms.fillStyle), new Legs(charInfo.legs.fillStyle));
+    }
+    async function sendCharacterToServer() {
+        const displayStatus = document.getElementById("serverMessage");
+        const url = "https://gis-communication.herokuapp.com";
+        const query = new URLSearchParams({
+            head: JSON.stringify(character.head),
+            torso: JSON.stringify(character.torso),
+            arms: JSON.stringify(character.arms),
+            legs: JSON.stringify(character.legs)
+        });
+        const res = await fetch(url + "?" + query.toString());
+        const answer = await res.json();
+        displayStatus.innerText = "Server: " + await answer.message || await answer.error;
+        displayStatus.style.color = await answer.message ? "#19e619" : "#a02128";
+    }
     function registerHeads() {
         optionCanvasArray.forEach((canvas, index) => {
             canvas.addEventListener("click", () => {
@@ -146,26 +193,5 @@ var characterCreation;
         });
         legsArray.forEach((leg, index) => leg.drawOption(optionContextArray[index]));
     }
-    async function dataToServer(_url) {
-        let browserCacheData = JSON.parse(sessionStorage.getItem());
-        // Code aus Kapitel 2 Praktikumsaufgabe 5:
-        let query = new URLSearchParams(browserCacheData);
-        url = url + "?" + query.toString();
-        await fetch(url);
-        displayServerAnswer(text);
-    }
-    function displayServerAnswer(_serverAnswer) {
-        let displayStatus = document.getElementById("serverMessage");
-        if (_serverAnswer.confirmation == undefined) {
-            displayStatus.textContent = "Server: " + _serverAnswer.confirmation;
-            displayStatus.style.color = "19e619";
-        }
-        else if (_serverAnswer.errorMessage == undefined) {
-            displayStatus.textContent = "Server: " + _serverAnswer.errorMessage;
-            displayStatus.style.color = "#a02128";
-        }
-    }
-    // https://raw.githubusercontent.com/Moripho/GIS-WiSe-2020-2021/main/AbgabeKapitel2/data.json als url im fetch
-    // die ganzen Dateien müssen noch konvertiert werden
 })(characterCreation || (characterCreation = {}));
 //# sourceMappingURL=script.js.map
