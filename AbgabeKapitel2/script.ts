@@ -200,7 +200,7 @@ namespace characterCreation {
             legs: JSON.stringify(character.legs)
         });
 
-        const res: Response = await fetch(url + "?" + query.toString())
+        const res: Response = await fetch(url + "?" + query.toString());
         const answer: ServerMeldung = await res.json();
 
         displayStatus.innerText = "Server: " + (await answer.message || await answer.error);
