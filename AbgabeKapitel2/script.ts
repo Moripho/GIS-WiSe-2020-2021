@@ -179,4 +179,10 @@ namespace characterCreation {
         legsArray.forEach((leg, index) => leg.drawOption(optionContextArray[index]));
     }
 
+    function communicate(_url: RequestInfo){
+        
+    }
+
+    // https://raw.githubusercontent.com/Moripho/GIS-WiSe-2020-2021/main/AbgabeKapitel2/data.json als url im fetch
+    // die ganzen Dateien müssen noch konvertiert werden
 }
