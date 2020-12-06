@@ -146,7 +146,24 @@ var characterCreation;
         });
         legsArray.forEach((leg, index) => leg.drawOption(optionContextArray[index]));
     }
-    function communicate(_url) {
+    async function dataToServer(_url) {
+        let browserCacheData = JSON.parse(sessionStorage.getItem());
+        // Code aus Kapitel 2 Praktikumsaufgabe 5:
+        let query = new URLSearchParams(browserCacheData);
+        url = url + "?" + query.toString();
+        await fetch(url);
+        displayServerAnswer(text);
+    }
+    function displayServerAnswer(_serverAnswer) {
+        let displayStatus = document.getElementById("serverMessage");
+        if (_serverAnswer.confirmation == undefined) {
+            displayStatus.textContent = "Server: " + _serverAnswer.confirmation;
+            displayStatus.style.color = "19e619";
+        }
+        else if (_serverAnswer.errorMessage == undefined) {
+            displayStatus.textContent = "Server: " + _serverAnswer.errorMessage;
+            displayStatus.style.color = "#a02128";
+        }
     }
     // https://raw.githubusercontent.com/Moripho/GIS-WiSe-2020-2021/main/AbgabeKapitel2/data.json als url im fetch
     // die ganzen Dateien müssen noch konvertiert werden

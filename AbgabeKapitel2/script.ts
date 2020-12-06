@@ -1,5 +1,5 @@
 namespace characterCreation {
-    
+
     let mainCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("characterGenerator");
     let mainContext: CanvasRenderingContext2D = mainCanvas.getContext("2d");
 
@@ -7,7 +7,7 @@ namespace characterCreation {
     let optionContextArray: CanvasRenderingContext2D[] = optionCanvasArray.map(canvas => canvas.getContext("2d"));
 
     let resultButton: HTMLElement = document.getElementById("resultButton");
-  
+
     export class Head {
         fillStyle: string;
 
@@ -121,7 +121,7 @@ namespace characterCreation {
         }
     }
 
-    
+
 
     window.addEventListener("load", () => {
         const storageItem: string = sessionStorage.getItem("character");
@@ -179,8 +179,32 @@ namespace characterCreation {
         legsArray.forEach((leg, index) => leg.drawOption(optionContextArray[index]));
     }
 
-    function communicate(_url: RequestInfo){
-        
+    async function dataToServer(_url: string): Promise<void> {
+        let browserCacheData: JSON = JSON.parse(sessionStorage.getItem());
+        // Code aus Kapitel 2 Praktikumsaufgabe 5:
+        let query: URLSearchParams = new URLSearchParams(<any>browserCacheData);
+        url = url + "?" + query.toString();
+        await fetch(url);
+
+        displayServerAnswer(text);
+    }
+
+    interface ServerMeldung {
+        errorMessage: string;
+        confirmation: string;
+    }
+
+    function displayServerAnswer(_serverAnswer: ServerMeldung) {
+        let displayStatus: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("serverMessage");
+        if (_serverAnswer.confirmation == undefined) {
+            displayStatus.textContent = "Server: " + _serverAnswer.confirmation;
+            displayStatus.style.color = "19e619";
+        }
+
+        else if (_serverAnswer.errorMessage == undefined) {
+            displayStatus.textContent = "Server: " + _serverAnswer.errorMessage;
+            displayStatus.style.color = "#a02128";
+        }
     }
 
     // https://raw.githubusercontent.com/Moripho/GIS-WiSe-2020-2021/main/AbgabeKapitel2/data.json als url im fetch
