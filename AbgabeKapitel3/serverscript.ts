@@ -1,9 +1,9 @@
-import * as Http from "http";
+import * as Http from "http"; // importieren des HTTP-Moduls, was für den Serverbau gebraucht wird
 
 export namespace P_3_1Server {
     console.log("Starting server"); //Konsolenausgabe "Starting Server"
     let port: number = Number(process.env.PORT); // Erstellen der Port-Adresse
-    if (!port) // falls kein Port existierd wird der Port 8100 erstellt
+    if (!port) // falls kein Port existierd wird der Port 8100 (localhost) erstellt
         port = 8100;
 
     let server: Http.Server = Http.createServer(); 
