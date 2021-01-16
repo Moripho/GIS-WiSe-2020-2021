@@ -1,5 +1,30 @@
 {
   "dependencies": {
     "@types/node": "^14.14.20"
-  }
+  },
+  "name": "gis-wise-2020-2021",
+  "description": "Repository in dem sich alle Aufgaben des Wintersemesters 2020-2021 befinden",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node ./AbgabeKapitel3/serverscript.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moripho/GIS-WiSe-2020-2021.git"
+  },
+  "keywords": [
+    "packae",
+    "json",
+    "file",
+    "for",
+    "server"
+  ],
+  "author": "Jonas Kopp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Moripho/GIS-WiSe-2020-2021/issues"
+  },
+  "homepage": "https://github.com/Moripho/GIS-WiSe-2020-2021#readme"
 }
