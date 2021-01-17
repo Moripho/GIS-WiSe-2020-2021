@@ -1,17 +1,17 @@
 import * as Http from "http";                                                                       // importieren des HTTP-Moduls, was für den Serverbau gebraucht wird
 
 export namespace P_3_1Server {                                                                      // Namespacing für den Server der Kapitelaufgabe 3.1
-    console.log("Starting server");                                                                 //Konsolenausgabe "Starting Server" um Startpunk des Servers in der Konsolenausgabe nachvollziehen zu können
+    console.log("Starting server");                                                                 // Konsolenausgabe "Starting Server" um Startpunk des Servers in der Konsolenausgabe nachvollziehen zu können
     let port: number = Number(process.env.PORT);                                                    // Erstellen der Port-Adresse
-    if (!port)                                                                                      // falls port keinen Wert hat, wird der Port 8100 (localhost) zugewiesen
+    if (!port)                                                                                      // falls port keinen Wert hat, wird der Port 8100 zugewiesen
         port = 8100;
 
     let server: Http.Server = Http.createServer();                                                  // createServer() erstellt einen Server und speichert dessen Wert in der Variablen server vom Typ HTML.server
     server.addListener("request", handleRequest);                                                   // Um Anfragen (requests) von Nutzern auf einem Server verarbeiten zu können, wird dieser Eventlistener verwendet. Der Listener ruft für jede eingehende Nutzeranfrage bzw. request die handleRequest-Funktion auf  
     server.addListener("listening", handleListen);                                                  // Eventlistener: Hört Server zu und befindet sich im status "listen" und es erfolgte noch keine Anfrage durch den Nutzer, so wird die Funktion handleListen() aufgerufen
-    server.listen(port);                                                                            // Server soll auf vorher definierte Portnummer hören
+    server.listen(port);                                                                            // listen-Funktion wird aufgerufen und triggert Zeil 11 bzw. Eventlistener
 
-    function handleListen(): void { //                                                              // Funktion die angibt, dass Server gerade zuhört
+    function handleListen(): void {                                                                 // Funktion die angibt, dass Server gerade zuhört
         console.log("Listening");                                                                   // Konsolenausgabe, die obiges wiederspiegeln soll
     }
 

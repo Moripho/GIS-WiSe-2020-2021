@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aufgabe 3.1</title>
+    <script src="clientscript.js"></script>
 </head>
 <body>
     <h2>Login Page mit HTML Formular</h2>
 
-<form action="https://gis-example.herokuapp.com/" method="get">
+<form action="javascript:getData()">
   <label for="fname">Vorname:</label><br>
   <input type="text" id="fname" name="fname" value="Meister"><br>
   <label for="lname">Nachname:</label><br>
@@ -17,7 +18,7 @@
 </form> 
 
 <p>Wenn Sie den Submit-Button klicken, werden Ihre Daten an einen Server weitergeleitet.</p>
-<script src="serverscript.js"></script>
+
 </body>
 
 
