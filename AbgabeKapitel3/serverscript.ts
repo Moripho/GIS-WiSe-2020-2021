@@ -7,16 +7,16 @@ export namespace P_3_1Server { // Namespacing für den Server der Kapitelaufgabe
         port = 8100;
 
     let server: Http.Server = Http.createServer(); // Erstellen des Http-Servers
-    server.addListener("request", handleRequest); // Event
+    server.addListener("request", handleRequest); // Eventhandler für Serverrequest 
     server.addListener("listening", handleListen);
-    server.listen(port);
+    server.listen(port);                            // Server 
 
     function handleListen(): void { // 
         console.log("Listening");
     }
 
 
-    function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void { // Funktion, die die Request 
+    function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void { // Funktion, für die Serverrequest
         console.log("I hear voices!");
         _response.setHeader("content-type", "text/html; charset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
