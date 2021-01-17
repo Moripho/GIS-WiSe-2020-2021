@@ -154,7 +154,8 @@ var characterCreation;
             arms: JSON.stringify(character.arms),
             legs: JSON.stringify(character.legs)
         });
-        const res = await fetch(url + "?" + query.toString()); // Konstante "Server Response", bestehend aus der Server-URL und, mit Fragezeichen getrennt, dem Query, der die eigentlichen Nutzdaten beinhaltet
+        const res = await fetch(url + "?" + query.toString()); // Konstante "Server Response", bestehend aus der Server-URL und, mit Fragezeichen getrennt, dem Query, der die eigentlichen Nutzdaten dar, die bei der synchronen Übertragung mit der Get-Methode des Formulars bereits automatisch aufbereitet und mitgeschickt wurden
+        const answer = await res.json(); // Deklaration der Kontanten "answer" vom Typ ServerMledung
         displayStatus.innerText = "Server: " + (await answer.message || await answer.error); // Text des displayStatus wird abhängig davon befüllt, ob ein error oder eine erfolgreiche Kommunikation stattgefunden hat. Hierzu wird
         displayStatus.style.color = await answer.message ? "#19e619" : "#a02128"; // war die Kommunikation erfolgreich, wird die Serverantwort in grün und sonst in rot dargestellt
     }

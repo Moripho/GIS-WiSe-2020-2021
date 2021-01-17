@@ -192,7 +192,7 @@ namespace characterCreation { // Namespace für alle relevanten Funktionen, um d
         message: string;        // Message des Servers bei erfolgreicher Kommunikation
     }
 
-    async function sendCharacterToServer(): Promise<void> {                               // Funktion, die die Charakterdaten an einen Server schickt
+    async function sendCharacterToServer(): Promise<void> {                             
         const displayStatus: HTMLElement = document.getElementById("serverMessage");     // Bezugnahme auf das HTML-Element (ID) serverMessage, welches die Servermessage darstellen soll
         
         const url: string = "https://gis-communication.herokuapp.com";                  // URL des Servers, mit welchem kommuniziert wird
@@ -203,7 +203,8 @@ namespace characterCreation { // Namespace für alle relevanten Funktionen, um d
             legs: JSON.stringify(character.legs)
         });
 
-        const res: Response = await fetch(url + "?" + query.toString());                // Konstante "Server Response", bestehend aus der Server-URL und, mit Fragezeichen getrennt, dem Query, der die eigentlichen Nutzdaten beinhaltet
+        const res: Response = await fetch(url + "?" + query.toString());                // Konstante "Server Response", bestehend aus der Server-URL und, mit Fragezeichen getrennt, dem Query, der die eigentlichen Nutzdaten dar, die bei der synchronen Übertragung mit der Get-Methode des Formulars bereits automatisch aufbereitet und mitgeschickt wurden
+        const answer: ServerMeldung = await res.json();                                 // Deklaration der Kontanten "answer" vom Typ ServerMledung
 
         displayStatus.innerText = "Server: " + (await answer.message || await answer.error);    // Text des displayStatus wird abhängig davon befüllt, ob ein error oder eine erfolgreiche Kommunikation stattgefunden hat. Hierzu wird
         displayStatus.style.color = await answer.message ? "#19e619" : "#a02128";               // war die Kommunikation erfolgreich, wird die Serverantwort in grün und sonst in rot dargestellt
