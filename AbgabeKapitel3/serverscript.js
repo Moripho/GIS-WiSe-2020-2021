@@ -15,11 +15,15 @@ var P_3_1Server;
     function handleListen() { // Funktion handleListen
         console.log("Listening");   // Konsolenausgabe "Listening", die dem Nutzer veranschaulicht, dass der Server gerade "zuhört"
     }
-    function handleRequest(_request, _response) { // Funktion, die die Serveranfragen durch Nutzer verarbeitet
+    function handleRequest(_request, _response) { // Funktion, die die Serveranfragen durch Nutzer verarbeitet.
+                                                // LAUT VORLESUNGSMATERIALIEN:
+                                                // Die Funktion erwartet normalerweise zwei Parameter: den ersten vom Typ IncomingMessage, den zweiten vom Typ ServerResponse (beide aus dem http-Modul).
+                                                //IncomingMessage liefert Infos zum eingegangenen Request-Objekt (z. B. URL als String).
+                                                //ServerResponse ist ein Objekt, welches Infos für die Antwort sammelt. Die Info wird in zwei Kategorien aufgeteilt: Header (Infos zur eigentlichen Nachricht) + Body (die Nachricht selbst)
         console.log("I hear voices!");              // Konsolenausgabe "I hear voices"
-        _response.setHeader("content-type", "text/html; charset=utf-8");        
-        _response.setHeader("Access-Control-Allow-Origin", "*");
-        _response.write(_request.url);
+        _response.setHeader("content-type", "text/html; charset=utf-8"); // über setHeader()-Funktion wird Header-Information integriert. Header gibt an, dass die Serverantwort ein mit utf-8 kodierter Text ist       
+        _response.setHeader("Access-Control-Allow-Origin", "*"); // jeder darf Nachricht öffnen, Asterisk "*" = alles
+        _response.write(_request.url); // Funktion, die dem Nachrichten-Body die URL der Serverrequest anfügt
         _response.end();
     }
 })(P_3_1Server = exports.P_3_1Server || (exports.P_3_1Server = {}));
