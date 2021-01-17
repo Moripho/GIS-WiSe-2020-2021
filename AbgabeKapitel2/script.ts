@@ -127,7 +127,8 @@ namespace characterCreation { // Namespace für alle relevanten Funktionen, um d
             }
         }
 
-        isFullyAssembled(): boolean {
+        isFullyAssembled(): boolean {                        // Funktion, die feststellt, ob ein Character vollständig gezeichnet wurde.
+                                                            //Es wird geprüft, ob alle Körperteile farbig und nicht weiß sind, da keine der Optionen ein weißes Körperteil zu Verfügung stellt und der Canvas an sich als Default die Farbe Weiß hat
             return this.head.fillStyle !== "white" && 
                     this.torso.fillStyle !== "white" && 
                     this.arms.fillStyle !== "white" && 
@@ -135,30 +136,30 @@ namespace characterCreation { // Namespace für alle relevanten Funktionen, um d
         }
     }
 
-    window.addEventListener("load", async () => {
+    window.addEventListener("load", async () => { // Event-Listener der schaut, das beim Laden einer Seite/eines Fensters eine asynchrone Funktion aufgerufen wird, bei der zuerst die Charakterdaten bezogen werden, bevor der eigentliche Character gezeichnet wird
         await loadCharacterData();
         character.draw();
 
-        let currentSite: string = location.pathname.split("/").pop().replaceAll(".html", "");
+        let currentSite: string = location.pathname.split("/").pop().replaceAll(".html", ""); // hier wird die aktuelle Location-Adresse aufgesplittet, um festzustellen, welcher der folgenden Cases eintritt
         switch (currentSite) {
-            case "head":
+            case "head":                    // befindet man sich auf der head(.html)-Seite, so wird die Funktion registerHeads() ausgeführt
                 registerHeads();
                 break;
-            case "torso":
+            case "torso":                   // befindet man sich auf der torso(.html)-Seite, so wird die Funktion registerTorsos() ausgeführt
                 registerTorsos();
                 break;
-            case "arms":
+            case "arms":                    // befindet man sich auf der arms(.html)-Seite, so wird die Funktion registerArms() ausgeführt
                 registerArms();
                 break;
-            case "legs":
+            case "legs":                    // befindet man sich auf der legs(.html)-Seite, so wird die Funktion registerLegs() ausgeführt
                 registerLegs();
                 break;
-            case "index": 
-                if (character.isFullyAssembled()) sendCharacterToServer();
+            case "index":                   // befindet man sich auf der index(.html)-Seite, so wird geprüft, ob...
+                if (character.isFullyAssembled()) sendCharacterToServer(); // der Character vollständig ist, und falls ja werden seine Daten an den Server geschickt
         }
     });
 
-    interface ServerResponse {
+    interface ServerResponse { // Interface für die Serverantwort. Das Interface beinhaltet alle Arrays und den Character
         headsArray: Head[];
         torsosArray: Torso[];
         armsArray: Arms[];
@@ -166,17 +167,17 @@ namespace characterCreation { // Namespace für alle relevanten Funktionen, um d
         character: Character;
     }
 
-    async function loadCharacterData(): Promise<void> {
-        const response: Response = await fetch("https://raw.githubusercontent.com/Moripho/GIS-WiSe-2020-2021/main/AbgabeKapitel2/data.json");
-        const data: ServerResponse = await response.json();
-        const storageItem: string = sessionStorage.getItem("character");
+    async function loadCharacterData(): Promise<void> {     // asynchrone Funktion, um Charakterdaten zu laden (asynchrone Funktion wird bei fetch unterbrochen und sobald fetch beendet wurde forgesetzt )
+        const response: Response = await fetch("https://raw.githubusercontent.com/Moripho/GIS-WiSe-2020-2021/main/AbgabeKapitel2/data.json"); // Starten einer Serveranfrage um Charakterdaten aus json-Datei zu laden, Serveranfrage liefert aufgrund Asynchronität ein Objekt vom Typ Promise
+        const data: ServerResponse = await response.json();                                                                                   // Warten auf die zu beziehende json-Datei
+        const storageItem: string = sessionStorage.getItem("character");                                                                      // Konstante definieren, um sessionStorage abspeichern zu können, session Storage bekommt die Werte von "character"
 
         headsArray = data.headsArray.map(head => new Head(head.fillStyle));
         torsosArray = data.torsosArray.map(torso => new Torso(torso.fillStyle));
         armsArray = data.armsArray.map(arms => new Arms(arms.fillStyle));
         legsArray = data.legsArray.map(legs => new Legs(legs.fillStyle));
 
-        const charInfo: Character = storageItem ? (JSON.parse(storageItem) as Character) : data.character;
+        const charInfo: Character = storageItem ? (JSON.parse(storageItem) as Character) : data.character; // Existiert bereits ein Character? 
 
         character = new Character(
             new Head(charInfo.head.fillStyle), 
@@ -186,41 +187,40 @@ namespace characterCreation { // Namespace für alle relevanten Funktionen, um d
         );
     }
 
-    interface ServerMeldung {
-        error: string;
-        message: string;
+    interface ServerMeldung {   // Interface für Server Meldung
+        error: string;          // Error Message
+        message: string;        // Message des Servers bei erfolgreicher Kommunikation
     }
 
-    async function sendCharacterToServer(): Promise<void> {
-        const displayStatus: HTMLElement = document.getElementById("serverMessage");
+    async function sendCharacterToServer(): Promise<void> {                               // Funktion, die die Charakterdaten an einen Server schickt
+        const displayStatus: HTMLElement = document.getElementById("serverMessage");     // Bezugnahme auf das HTML-Element (ID) serverMessage, welches die Servermessage darstellen soll
         
-        const url: string = "https://gis-communication.herokuapp.com";
+        const url: string = "https://gis-communication.herokuapp.com";                  // URL des Servers, mit welchem kommuniziert wird
         const query: URLSearchParams = new URLSearchParams(<any>{
-            head: JSON.stringify(character.head),
+            head: JSON.stringify(character.head),                                       // der Charakter bekommt seine Werte über die json-Datei zugeschrieben, die in einen String umgewandelt werden
             torso: JSON.stringify(character.torso),
             arms: JSON.stringify(character.arms),
             legs: JSON.stringify(character.legs)
         });
 
-        const res: Response = await fetch(url + "?" + query.toString());
-        const answer: ServerMeldung = await res.json();
+        const res: Response = await fetch(url + "?" + query.toString());                // Konstante "Server Response", bestehend aus der Server-URL und, mit Fragezeichen getrennt, dem Query, der die eigentlichen Nutzdaten beinhaltet
 
-        displayStatus.innerText = "Server: " + (await answer.message || await answer.error);
-        displayStatus.style.color = await answer.message ? "#19e619" : "#a02128";
+        displayStatus.innerText = "Server: " + (await answer.message || await answer.error);    // Text des displayStatus wird abhängig davon befüllt, ob ein error oder eine erfolgreiche Kommunikation stattgefunden hat. Hierzu wird
+        displayStatus.style.color = await answer.message ? "#19e619" : "#a02128";               // war die Kommunikation erfolgreich, wird die Serverantwort in grün und sonst in rot dargestellt
     }
 
-    function registerHeads(): void {
-        optionCanvasArray.forEach((canvas, index) => {
-            canvas.addEventListener("click", () => {
-                character.head = headsArray[index];
-                character.draw();
+    function registerHeads(): void {                        // registerHeads-Funktion... 
+        optionCanvasArray.forEach((canvas, index) => {    // um das optionCanvas-Array mit jedem möglichen Kopf zu befüllen
+            canvas.addEventListener("click", () => {        // hinzufügen eines Event-Listeners, der bei Klick auf einen der Canvas(e)...
+                character.head = headsArray[index];         // den Wert des Kopfes des Characters gleich dem Kopf im headsArray am momentanen Index setzt
+                character.draw();                           // Der character wird anschließend gezeichnet
             });
         });
 
-        headsArray.forEach((head, index) => head.drawOption(optionContextArray[index]));
+        headsArray.forEach((head, index) => head.drawOption(optionContextArray[index])); // für jeden head an einem Index des headsarray wird die drawOption-Funktion aufgerufen, der dann jeweilige Kopf aus dem optionContextArray übergeben wird
     }
 
-    function registerTorsos(): void {
+    function registerTorsos(): void {                           // s. o.
         optionCanvasArray.forEach((canvas, index) => {
             canvas.addEventListener("click", () => {
                 character.torso = torsosArray[index];
@@ -231,7 +231,7 @@ namespace characterCreation { // Namespace für alle relevanten Funktionen, um d
         torsosArray.forEach((torso, index) => torso.drawOption(optionContextArray[index]));
     }
 
-    function registerArms(): void {
+    function registerArms(): void {                             // s. o.
         optionCanvasArray.forEach((canvas, index) => {
             canvas.addEventListener("click", () => {
                 character.arms = armsArray[index];
@@ -242,7 +242,7 @@ namespace characterCreation { // Namespace für alle relevanten Funktionen, um d
         armsArray.forEach((arm, index) => arm.drawOption(optionContextArray[index]));
     }
 
-    function registerLegs(): void {
+    function registerLegs(): void {                             // s.o.
         optionCanvasArray.forEach((canvas, index) => {
             canvas.addEventListener("click", () => {
                 character.legs = legsArray[index];
