@@ -1,36 +1,39 @@
 body {
-    background-color: #3682bd;
+    background-color: #3682bd; /* Hintergrundfarbe der Website */
     margin: 0;
     padding: 0;
-    height: 100%;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+    height: 100%; /* Websitehintergrund füllt komplette Fläche des Browsers abhängig vom Gerät */
+    text-align: center; /* mittige Darstellung des Textes */
+    font-family: Arial, Helvetica, sans-serif; /* Schriftart */
 }
 
-h1 {
-    font-size: 40px;
-    text-transform: uppercase;
+h1 { /* betreffend aller H1-Überschriften */
+    font-size: 40px; /* Schriftgröße */
+    text-transform: uppercase; /* Umwandeln aller Buchstaben in Großbuchstaben */
     text-align: center;
-    display: inline-block;
-    position: relative;
-    padding-right: 170px;
-    width: 100%;
-    color: white;
+    display: inline-block; /* Im Vergleich zu display: inline besteht der Hauptunterschied darin, dass display: inline-block die Möglichkeit bietet, eine Breite und Höhe für das Element festzulegen.
+    Außerdem werden bei display: inline-block die oberen und unteren Ränder/Paddings beachtet, bei display: inline jedoch nicht. */
+    position: relative;  /* relative Positionierung: Ein Element mit position: relative wird relativ zu seiner normalen Position positioniert.
+    Das Einstellen der Eigenschaften "Oben", "Rechts", "Unten" und "Links" eines relativ positionierten Elements bewirkt, dass es von seiner normalen Position weg angepasst wird.
+    Andere Inhalte werden nicht angepasst, um in die Lücke zu passen, die das Element hinterlässt. */
+    padding-right: 170px; /* padding-right, um die Überschrift "CANVAS CHARACTER GENERATOR 2D" mittig zu positionieren */
+    width: 100%; /* Breite des Inhalts*/
+    color: white; /* Schriftfarbe weiß */
 }
 
 p {
-    color: white;
-    font-size: 25px;
-    padding: 0;
-    margin: 10px;
+    color: white; /* Schriftfarbe weiß */
+    font-size: 25px; /* Schriftgröße 25px */
+    padding: 0; /* kein padding , welches laut CSS-Box-Model direkt den Content umgibt und unter der border liegt*/
+    margin: 10px; /* 10 px margin für top, (kommt nach border, also äußerstes Element, wird meistens für die Positionierung von Elementen verwendet.), welches laut CSS-Box-Model direkt den Content umgibt. Die margins mehrerer Objekte verschmilzen miteinander!*/
 }
 
 canvas {
-    background-color: white;
+    background-color: white; /* Hintergundfarbe der Canvas-Fläche*/
 }
 
 footer {
-    color: white;
+    color: white; /* Schriftfarbe des Footers: weiß */
 
 }
 
@@ -47,69 +50,69 @@ footer {
     margin: auto;
 }
 
-.linkButton {
+.linkButton { /* die Klasse linkButton betreffend */
     all: unset;
-    display: inline-block;
-    background: #a41f66;
-    padding: 10px 20px;
-    font-size: 20px;
-    cursor: pointer;
-    margin: 5px 30px;
-    width: 75px;
-    color: white;
+    display: inline-block; /* Buttons werden in einer Zeile dargestellt */
+    background: #a41f66; /* Farbe der Buttons */
+    padding: 10px 20px; /* Padding, um den eigentlichen Textinhalt der Buttons */
+    font-size: 20px; /* Schriftgröße des Textinhalts der Buttons */
+    cursor: pointer; /* Cursor wird zum Pointer, um die  Auswahlmöglichkeit weiter zu betonen */
+    margin: 5px 30px; /* Abstand der Buttons oben und unten, bzw. links und rechts voneinander */
+    width: 75px; /* Breite der Buttons */
+    color: white; /* Schriftfarbe des Texts der Buttons */
 }
 
-.linkButton.disabled {
-    background: #666666;
-    cursor: default;
+.linkButton.disabled { /* ausgegrauter Button, der disabled ist, abhängig davon, auf welcher Unterseite man sich befindet, betrifft also "linkButton disabled"-Klasse */
+    background: #666666; /* Farbe des disabled Buttons*/
+    cursor: default; /* default Cursor, um Nutzer zusätzlich  zu signalisieren, dass er den Button nicht zu klicken braucht */
 }
 
-#characterGenerator {
-    margin-top: 81px;
+#characterGenerator { /*betrifft die ID des CharacterGenerators, also die Canvas-Projektionsfläche*/ 
+    margin-top: 81px; /*Abstand vom Header*/
 }
 
-#optionsContainer {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
+#optionsContainer { /*betrifft die ID der optionsContainer, die jeweils die Auswahlmöglichkeiten der jeweiligen Körperteile beinhalten*/ 
+    display: flex; /*definieren eines Flexbox-Containers, um die jeweiligen Optionen innerhalb eines Containers über top, bottom, left und right positionieren zu können positionieren zu können*/ 
+    flex-direction: column; /* Inhalte der Flexbox werden in einer Spalte untereinander dargestellt */
+    width: 250px; /* Breite des gesamten Flexbox-Containers */
 }
 
 #optionsContainer{
-    display: inline-block;
+    display: inline-block; /* bei inline-block werden die oberen und unteren Ränder/Paddings beachtet */
 }
 
 .optionCanvas {
-    cursor: pointer;
+    cursor: pointer; /* Cursor wird zum Pointer, um die  Auswahlmöglichkeit weiter zu betonen */
 }
 
-.optionCanvas:not(:last-child) {
-    margin-bottom: 16.5px;
+.optionCanvas:not(:last-child) { /* betrifft alle dargestellten Optionen mit Ausnahme der untersten bzw. des letzten Elements, da dieses auf gleicher Höhe mit dem großen Character Canvas sein soll */
+    margin-bottom: 16.5px; /* Abstand der untereinander liegenden Optionen voneinander */
 }
 
 /* Header *******************************/
 
 header {
-    width: 100%;
+    width: 100%; /* Header erstreckt sich über gesamte Fläche */
     height: 65px;
-    position: fixed;
+    position: fixed; /* Header ist fixiert, und befindet sich unabhängig von eventuellem Scrollen durch den Nutzer an dieser einen Position */
     top: 0;
     left: 0;
     background: #1e4588;
-    z-index: 1;
+    z-index: 1; /* Z-Index ist eins, Elemente mit höherem Z-Index überlappen Elemente mit Z-Index 1, sollten diese existieren */
     display: flex;
     align-items: center;
 }
 
-#logo {
-    width: 140px;
-    margin-left: 50px;
-    display: flex;
+#logo { /* das Logo betreffen */
+    width: 140px; /* Breite des Logos*/
+    margin-left: 50px; /* Abstand vom Rand der Website */
+    display: flex; /*definieren eines Flexbox-Containers, um die jeweiligen Optionen innerhalb eines Containers über top, bottom, left und right positionieren zu können positionieren zu können*/
 }
 
-#logo:hover {
-    opacity: 0.5;
+#logo:hover { /* betrifft das Logo, wenn mit der Maus über diesem Gehovert wird */
+    opacity: 0.5; /* nur noch halbe Deckkraft, betont quasi das Logo selbst */
 }
 
-#logo img {
-    width: 100%;
+#logo img { /* betrifft das Logobild */
+    width: 100%; /* Bild nimmt gesamte Breite des Logo-Containers ein*/
 }

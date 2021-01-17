@@ -4,12 +4,12 @@ exports.P_3_1Server = void 0;
 const Http = require("http"); // importieren des HTTP-Moduls, was für den Serverbau gebraucht wird
 var P_3_1Server;
 (function (P_3_1Server) {
-    console.log("Starting server"); //Konsolenausgabe "Starting Server"
+    console.log("Starting server"); //Konsolenausgabe "Starting Server" um Startpunk des Servers in der Konsolenausgabe nachvollziehen zu können
     let port = Number(process.env.PORT); // Erstellen der Port-Adresse
-    if (!port) // falls kein Port existierd wird der Port 8100 (localhost) erstellt
+    if (!port) // falls kein Port existiert, wird der Port 8100 (localhost) erstellt
         port = 8100;
-    let server = Http.createServer();
-    server.addListener("request", handleRequest); // Serverrequest
+    let server = Http.createServer(); // Erstellen des Http-Servers
+    server.addListener("request", handleRequest); // Event
     server.addListener("listening", handleListen);
     server.listen(port);
     function handleListen() {
