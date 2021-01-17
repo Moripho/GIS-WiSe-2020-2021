@@ -1,29 +1,29 @@
-namespace characterCreation {
+namespace characterCreation { // Namespace für alle relevanten Funktionen, um diese auch exportieren zu können
 
-    let mainCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("characterGenerator");
-    let mainContext: CanvasRenderingContext2D = mainCanvas.getContext("2d");
+    let mainCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("characterGenerator"); // Main Canvas "characterGenerator" erstellen
+    let mainContext: CanvasRenderingContext2D = mainCanvas.getContext("2d"); // 2D Kontext definieren, Drawing object erstellen
 
-    let optionCanvasArray: HTMLCanvasElement[] = <HTMLCanvasElement[]>[...document.querySelectorAll(".optionCanvas")];
-    let optionContextArray: CanvasRenderingContext2D[] = optionCanvasArray.map(canvas => canvas.getContext("2d"));
+    let optionCanvasArray: HTMLCanvasElement[] = <HTMLCanvasElement[]>[...document.querySelectorAll(".optionCanvas")]; // Array für die versch. Optionen erstellen
+    let optionContextArray: CanvasRenderingContext2D[] = optionCanvasArray.map(canvas => canvas.getContext("2d")); // 2D-Kontext-Array erstellen für alle Elemente des optionCanvasArray(s), drawing objects erstellen
 
-    let resultButton: HTMLElement = document.getElementById("resultButton");
+    let resultButton: HTMLElement = document.getElementById("resultButton"); // resultButton-Variable definieren. Es wird über die im HTML-Dokument definierte ID "resultButton" zurückgegriffen
 
-    let character: Character;
-    let headsArray: Head[];
-    let torsosArray: Torso[];
-    let armsArray: Arms[];
-    let legsArray: Legs[];
+    let character: Character;                           // Character definieren
+    let headsArray: Head[];                             // Array für die versch. Köpfe
+    let torsosArray: Torso[];                           // Array für die versch. Torsi
+    let armsArray: Arms[];                              // Array für die versch. Arme
+    let legsArray: Legs[];                              // Array für die versch. Beine
 
-    class Rect {
-        posX: number;
-        posY: number;
-        width: number;
-        height: number;
-        fillStyle: string;
+    class Rect {                                        // Klasse Rect(angle), für rechteckige Tori, Arme und Beine
+        posX: number;                                   // Variable für X-Koordinate
+        posY: number;                                   // Variable für Y-Koordinate
+        width: number;                                  // Variable für Breite
+        height: number;                                 // Variable für Höhe
+        fillStyle: string;                              // Variable für fillstyle, also Farbe, des jeweiligen Körperteils
 
-        constructor(_posX: number, _posY: number, _width: number, _height: number, _fillStyle: string) {
-            this.posX = _posX;
-            this.posY = _posY;
+        constructor(_posX: number, _posY: number, _width: number, _height: number, _fillStyle: string) {            // Konstruktor der Klasse
+            this.posX = _posX;                          // this-Verweis, um jeweils per Punktnotation jeweils auf einzelne Attribute der versch. Objekte zugreifen zu können
+            this.posY = _posY; 
             this.width = _width;
             this.height = _height;
             this.fillStyle = _fillStyle;
@@ -31,25 +31,26 @@ namespace characterCreation {
     }
 
     function drawRect(context: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, fillStyle: string): void {
-        context.beginPath();
-        context.rect(x, y, width, height);
-        context.fillStyle = fillStyle;
-        context.fill();
+        // Funktion, um Rechtecke zu zeichnen. Ihr werden sowohl der Canvas Rendering Kontext, als auch x- und y-Koordinate, sowie Breite und Höhe und Farbe übergeben
+        context.beginPath();                            // Pfadanfang definieren (immer als erstes bei Zeichnungen)
+        context.rect(x, y, width, height);              // Rechteck Kontext definieren
+        context.fillStyle = fillStyle;                  // Füllfarbe des zu zeichnenden Rechtecks
+        context.fill();                                 // füllen des Rechtecks
     }
 
-    export class Head {
-        fillStyle: string;
+    export class Head {                                 // Kopf-Klasse
+        fillStyle: string;                              // um einen Kreis bzw. Kopf zu zeichnen bedarf es lediglich einer Farbe
 
-        constructor(_fillStyle: string) {
-            this.fillStyle = _fillStyle;
+        constructor(_fillStyle: string) {               // Konstruktor, um einen Kopf anzulegen
+            this.fillStyle = _fillStyle;                // Farbe des Kopfes
         }
-        drawMain(): void {
-            mainContext.beginPath();
-            mainContext.arc(350, 100, 100, 0, 2 * Math.PI, false);
-            mainContext.fillStyle = this.fillStyle;
-            mainContext.fill();
+        drawMain(): void {                                              // Funktion um Kreis bzw. Kopf auf dem großen Canvas zu zeichnen
+            mainContext.beginPath();                                    // Pfadanfang definieren (immer als erstes bei Zeichnungen)
+            mainContext.arc(350, 100, 100, 0, 2 * Math.PI, false);      // Basic-Funktionen um einen runden Kreis zu zeichnen
+            mainContext.fillStyle = this.fillStyle;                     // Füllfarbe des zu zeichnenden Kreises
+            mainContext.fill();                                         // befüllen des Kreises
         }
-        drawOption(context: CanvasRenderingContext2D): void {
+        drawOption(context: CanvasRenderingContext2D): void {           // Funktion um Kreis bzw. Kopf auf dem kleinen Option-Canvas zu zeichnen
             context.beginPath();
             context.arc(110, 110, 50, 0, 2 * Math.PI, false);
             context.fillStyle = this.fillStyle;
@@ -57,19 +58,19 @@ namespace characterCreation {
         }
     }
 
-    export class Torso extends Rect {
-        constructor(_fillStyle: string) {
-            super(260, 200, 180, 260, _fillStyle);
+    export class Torso extends Rect {                   // Die Torso-Klasse erbt von der Basic-Klasse Rect(angle)
+        constructor(_fillStyle: string) {               // Im Kontruktor wird daher lediglich der fillStyle angegeben
+            super(260, 200, 180, 260, _fillStyle);      // da die versch. Optionen alle gleich groß sind, wurden hier Standardwerte definiert, nur der FillStyle ist bei allen Torsi unterschedlich
         }
-        drawMain(): void {
-            drawRect(mainContext, this.posX, this.posY, this.width, this.height, this.fillStyle);
+        drawMain(): void {                                 // Funktion, um Torso auf dem großen Canvas zu zeichnen
+            drawRect(mainContext, this.posX, this.posY, this.width, this.height, this.fillStyle); // Aufruf der allgemeinen Draw-Funktion für Rechtecke
         }
-        drawOption(context: CanvasRenderingContext2D): void {
-            drawRect(context, this.posX - 200, this.posY - 157, this.width / 2, this.height / 2, this.fillStyle);
+        drawOption(context: CanvasRenderingContext2D): void {   // Funktion, um Torso auf dem kleinen Option-Canvas zu zeichnen
+            drawRect(context, this.posX - 200, this.posY - 157, this.width / 2, this.height / 2, this.fillStyle); // Aufruf der allgemeinen Draw-Funktion für Rechtecke, allerdings mit Anpassung der X- und Y-Koordinaten, sowei der Höhe und Breite
         }
     }
 
-    export class Arms extends Rect {
+    export class Arms extends Rect { // s. o.
         constructor(_fillStyle: string) {
             super(39, 200, 221, 51, _fillStyle);
         }
@@ -84,7 +85,7 @@ namespace characterCreation {
         }
     }
 
-    export class Legs extends Rect {
+    export class Legs extends Rect { // s. o.
         constructor(_fillStyle: string) {
             super(260, 460, 65, 240, _fillStyle);
         }
@@ -100,7 +101,8 @@ namespace characterCreation {
         }
     }
 
-    export class Character {
+    export class Character { // Character Klasse
+        // Attribute des Characters
         head: Head;
         torso: Torso;
         arms: Arms;
@@ -113,15 +115,15 @@ namespace characterCreation {
             this.legs = _legs;
         }
 
-        draw(): void {
+        draw(): void {                                                          // Funktion zum Zeichnen des gesamten Characters auf dem großen Canvas
             sessionStorage.setItem("character", JSON.stringify(character));
             this.head.drawMain();
             this.torso.drawMain();
             this.arms.drawMain();
             this.legs.drawMain();
-            if (resultButton && this.isFullyAssembled()) {
-                resultButton.classList.remove("disabled");
-                resultButton.addEventListener("click", () => location.href = "index.html");
+            if (resultButton && this.isFullyAssembled()) { // Wenn der resultButton vorhanden ist und die Bedingung isFullyAssembled erfüllt ist, dann...
+                resultButton.classList.remove("disabled"); // Ergebnis Button ist nicht mehr grau hinterlegt
+                resultButton.addEventListener("click", () => location.href = "index.html"); // EventListener, der schaut, ob auf den Resultbutton geklickt wurde und dann auf Ergebnisseite (index.html) weiterleitet
             }
         }
 

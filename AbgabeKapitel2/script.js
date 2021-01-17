@@ -1,19 +1,19 @@
 "use strict";
 var characterCreation;
 (function (characterCreation) {
-    let mainCanvas = document.getElementById("characterGenerator");
-    let mainContext = mainCanvas.getContext("2d");
-    let optionCanvasArray = [...document.querySelectorAll(".optionCanvas")];
-    let optionContextArray = optionCanvasArray.map(canvas => canvas.getContext("2d"));
-    let resultButton = document.getElementById("resultButton");
-    let character;
-    let headsArray;
-    let torsosArray;
-    let armsArray;
-    let legsArray;
+    let mainCanvas = document.getElementById("characterGenerator"); // Main Canvas "characterGenerator" erstellen
+    let mainContext = mainCanvas.getContext("2d"); // 2D Kontext definieren, Drawing object erstellen
+    let optionCanvasArray = [...document.querySelectorAll(".optionCanvas")]; // Array für die versch. Optionen erstellen
+    let optionContextArray = optionCanvasArray.map(canvas => canvas.getContext("2d")); // 2D-Kontext-Array erstellen für alle Elemente des optionCanvasArray(s), drawing objects erstellen
+    let resultButton = document.getElementById("resultButton"); // resultButton-Variable definieren. Es wird über die im HTML-Dokument definierte ID "resultButton" zurückgegriffen
+    let character; // Character definieren
+    let headsArray; // Array für die versch. Köpfe
+    let torsosArray; // Array für die versch. Torsi
+    let armsArray; // Array für die versch. Arme
+    let legsArray; // Array für die versch. Beine
     class Rect {
         constructor(_posX, _posY, _width, _height, _fillStyle) {
-            this.posX = _posX;
+            this.posX = _posX; // this-Verweis, um jeweils per Punktnotation jeweils auf einzelne Attribute der versch. Objekte zugreifen zu können
             this.posY = _posY;
             this.width = _width;
             this.height = _height;
@@ -21,20 +21,21 @@ var characterCreation;
         }
     }
     function drawRect(context, x, y, width, height, fillStyle) {
-        context.beginPath();
-        context.rect(x, y, width, height);
-        context.fillStyle = fillStyle;
-        context.fill();
+        // Funktion, um Rechtecke zu zeichnen. Ihr werden sowohl der Canvas Rendering Kontext, als auch x- und y-Koordinate, sowie Breite und Höhe und Farbe übergeben
+        context.beginPath(); // Pfadanfang definieren (immer als erstes bei Zeichnungen)
+        context.rect(x, y, width, height); // Rechteck Kontext definieren
+        context.fillStyle = fillStyle; // Füllfarbe des zu zeichnenden Rechtecks
+        context.fill(); // füllen des Rechtecks
     }
     class Head {
         constructor(_fillStyle) {
-            this.fillStyle = _fillStyle;
+            this.fillStyle = _fillStyle; // Farbe des Kopfes
         }
         drawMain() {
-            mainContext.beginPath();
-            mainContext.arc(350, 100, 100, 0, 2 * Math.PI, false);
-            mainContext.fillStyle = this.fillStyle;
-            mainContext.fill();
+            mainContext.beginPath(); // Pfadanfang definieren (immer als erstes bei Zeichnungen)
+            mainContext.arc(350, 100, 100, 0, 2 * Math.PI, false); // Basic-Funktionen um einen runden Kreis zu zeichnen
+            mainContext.fillStyle = this.fillStyle; // Füllfarbe des zu zeichnenden Kreises
+            mainContext.fill(); // befüllen des Kreises
         }
         drawOption(context) {
             context.beginPath();
@@ -46,13 +47,13 @@ var characterCreation;
     characterCreation.Head = Head;
     class Torso extends Rect {
         constructor(_fillStyle) {
-            super(260, 200, 180, 260, _fillStyle);
+            super(260, 200, 180, 260, _fillStyle); // da die versch. Optionen alle gleich groß sind, wurden hier Standardwerte definiert, nur der FillStyle ist bei allen Torsi unterschedlich
         }
         drawMain() {
-            drawRect(mainContext, this.posX, this.posY, this.width, this.height, this.fillStyle);
+            drawRect(mainContext, this.posX, this.posY, this.width, this.height, this.fillStyle); // Aufruf der allgemeinen Draw-Funktion für Rechtecke
         }
         drawOption(context) {
-            drawRect(context, this.posX - 200, this.posY - 157, this.width / 2, this.height / 2, this.fillStyle);
+            drawRect(context, this.posX - 200, this.posY - 157, this.width / 2, this.height / 2, this.fillStyle); // Aufruf der allgemeinen Draw-Funktion für Rechtecke, allerdings mit Anpassung der X- und Y-Koordinaten, sowei der Höhe und Breite
         }
     }
     characterCreation.Torso = Torso;
@@ -97,9 +98,9 @@ var characterCreation;
             this.torso.drawMain();
             this.arms.drawMain();
             this.legs.drawMain();
-            if (resultButton && this.isFullyAssembled()) {
-                resultButton.classList.remove("disabled");
-                resultButton.addEventListener("click", () => location.href = "index.html");
+            if (resultButton && this.isFullyAssembled()) { // Wenn der resultButton vorhanden ist und die Bedingung isFullyAssembled erfüllt ist, dann...
+                resultButton.classList.remove("disabled"); // Ergebnis Button ist nicht mehr grau hinterlegt
+                resultButton.addEventListener("click", () => location.href = "index.html"); // EventListener, der schaut, ob auf den Resultbutton geklickt wurde und dann auf Ergebnisseite (index.html) weiterleitet
             }
         }
         isFullyAssembled() {
