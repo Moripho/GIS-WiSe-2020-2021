@@ -9,8 +9,8 @@ var P_3_1Server;
     if (!port) // falls port keinen Wert hat, wird der Port 8100 (localhost) zugewiesen
         port = 8100;
     let server = Http.createServer(); // createServer() erstellt einen Server und speichert dessen Wert in der Variablen server vom Typ HTML.server
-    server.addListener("request", handleRequest); // Um Anfragen von Nutzern auf einem Server verarbeiten zu können, wird dieser Eventlistener verwendet. Der Listener ruft für jede eingehende Nutzeranfrage bzw. request die handleRequest-Funktion auf  
-    server.addListener("listening", handleListen); // Eventhandler für das Zuhören des Servers. Hört Server zu und befindet sich im status "listen" und es erfolgt keine Anfrage durch den Nutzer, so wird die Funktion handleListen() aufgerufen
+    server.addListener("request", handleRequest); // Um Anfragen (requests) von Nutzern auf einem Server verarbeiten zu können, wird dieser Eventlistener verwendet. Der Listener ruft für jede eingehende Nutzeranfrage bzw. request die handleRequest-Funktion auf  
+    server.addListener("listening", handleListen); // Eventlistener: Hört Server zu und befindet sich im status "listen" und es erfolgte noch keine Anfrage durch den Nutzer, so wird die Funktion handleListen() aufgerufen
     server.listen(port); // Server soll auf vorher definierte Portnummer hören
     function handleListen() {
         console.log("Listening"); // Konsolenausgabe, die obiges wiederspiegeln soll
