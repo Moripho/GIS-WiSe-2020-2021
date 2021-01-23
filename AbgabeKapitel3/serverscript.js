@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.P_3_1Server = void 0;
+exports.KapitelabgabeDreiServer = void 0;
 const Http = require("http"); // importieren des HTTP-Moduls, was für den Serverbau gebraucht wird
-var P_3_1Server;
-(function (P_3_1Server) {
+var KapitelabgabeDreiServer;
+(function (KapitelabgabeDreiServer) {
     console.log("Starting server"); // Konsolenausgabe "Starting Server" um Startpunk des Servers in der Konsolenausgabe nachvollziehen zu können
     let port = Number(process.env.PORT); // Erstellen der Port-Adresse
     if (!port) // falls port keinen Wert hat, wird der Port 8100 zugewiesen
@@ -26,5 +26,5 @@ var P_3_1Server;
         _response.write(_request.url); // Funktion, die dem Nachrichten-Body die URL der Serverrequest anfügt
         _response.end(); // markiert Ende der Serverantwort
     }
-})(P_3_1Server = exports.P_3_1Server || (exports.P_3_1Server = {}));
+})(KapitelabgabeDreiServer = exports.KapitelabgabeDreiServer || (exports.KapitelabgabeDreiServer = {}));
 //# sourceMappingURL=serverscript.js.map

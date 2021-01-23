@@ -1,6 +1,7 @@
 import * as Http from "http";                                                                       // importieren des HTTP-Moduls, was für den Serverbau gebraucht wird
+import * as Url from "url";                                                                         // importieren des URL-Moduls, URL in einzelne, les- und verwendbare Teile aufzusplitten
 
-export namespace P_3_1Server {                                                                      // Namespacing für den Server der Kapitelaufgabe 3.1
+export namespace KapitelabgabeDreiServer {                                                                      // Namespacing für den Server der Kapitelaufgabe 3.1
     console.log("Starting server");                                                                 // Konsolenausgabe "Starting Server" um Startpunk des Servers in der Konsolenausgabe nachvollziehen zu können
     let port: number = Number(process.env.PORT);                                                    // Erstellen der Port-Adresse
     if (!port)                                                                                      // falls port keinen Wert hat, wird der Port 8100 zugewiesen

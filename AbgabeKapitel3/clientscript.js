@@ -2,9 +2,13 @@
 function getData() {
     const fname = document.getElementById("fname");
     const lname = document.getElementById("lname");
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
     let data = new FormData();
     data.append("fname", fname.value);
     data.append("lname", lname.value);
+    data.append("email", email.value);
+    data.append("password", password.value);
     let query = new URLSearchParams(data);
     fetch("https://gissose20202021.herokuapp.com" + "?" + query.toString(), {
         method: "GET"

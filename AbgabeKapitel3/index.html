@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aufgabe 3.1</title>
+    <title>Kapitelabgabe 3</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/styling.css">
     <script src="clientscript.js"></script>
 </head>
 <body>
-    <h2>Login Page mit HTML Formular</h2>
-
+    <h1>Login Page mit HTML Formular</h1>
+<div id="loginbox">
+  <img src="media/avatar.png" id="avatar" alt="Logo Platzhalter">
 <form action="javascript:getData()">
   <label for="fname">Vorname:</label><br>
-  <input type="text" id="fname" name="fname" value="Meister"><br>
+  <input type="text" id="fname" name="fname" value=""><br>
   <label for="lname">Nachname:</label><br>
-  <input type="text" id="lname" name="lname" value="Propper"><br><br>
-  <input type="submit" value="Submit">
-</form> 
+  <input type="text" id="lname" name="lname" value=""><br>
+  <label for="email">E-Mail:</label><br>
+  <input type="email" id="email"  name="email" value=""><br>
+  <label for="password">Passwort:</label><br>
+  <input type="password" id="password"  name="password" value=""><br><br>
+  <input type="submit" name="submit" value="Registrieren">
+</form>
+<p id="anmerkung">Klicken Sie auf den Registrieren-Button, um die Registrierung abzuschließen.</p>
+<footer>
+  &copy; 2020 Jonas Kopp a.k.a. Moripho
+</footer>
+</div>
 
-<p>Wenn Sie den Submit-Button klicken, werden Ihre Daten an einen Server weitergeleitet.</p>
+
 
 </body>
 
