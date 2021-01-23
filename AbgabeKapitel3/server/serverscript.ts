@@ -2,12 +2,14 @@ import * as Http from "http";                                                   
 import * as Url from "url";                                                                         // importieren des URL-Moduls, URL in einzelne, les- und verwendbare Teile aufzusplitten
 import * as Mongo from "mongodb";
 
-export namespace KapitelabgabeDreiServer {                                                          // Namespacing für den Server der Kapitelaufgabe 3.1
-    console.log("Starting server");                                                                 // Konsolenausgabe "Starting Server" um Startpunk des Servers in der Konsolenausgabe nachvollziehen zu können
+export namespace KapitelabgabeDreiServer {                                                          // Namespacing für den Server der Kapitelabgabe 3
+    let userData: Mongo.Collection;    
     let port: number = Number(process.env.PORT);                                                    // Erstellen der Port-Adresse
-    if (!port)                                                                                      // falls port keinen Wert hat, wird der Port 8100 zugewiesen
+    if (port == undefined)                                                                                      // falls port keinen Wert hat, wird der Port 8100 zugewiesen
         port = 8100;
 
+    let databaseURL: string = "mongodb://localhost:27017";
+    
     let server: Http.Server = Http.createServer();                                                  // createServer() erstellt einen Server und speichert dessen Wert in der Variablen server vom Typ HTML.server
     server.addListener("request", handleRequest);                                                   // Um Anfragen (requests) von Nutzern auf einem Server verarbeiten zu können, wird dieser Eventlistener verwendet. Der Listener ruft für jede eingehende Nutzeranfrage bzw. request die handleRequest-Funktion auf  
     server.addListener("listening", handleListen);                                                  // Eventlistener: Hört Server zu und befindet sich im status "listen" und es erfolgte noch keine Anfrage durch den Nutzer, so wird die Funktion handleListen() aufgerufen

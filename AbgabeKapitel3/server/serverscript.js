@@ -4,10 +4,11 @@ exports.KapitelabgabeDreiServer = void 0;
 const Http = require("http"); // importieren des HTTP-Moduls, was für den Serverbau gebraucht wird
 var KapitelabgabeDreiServer;
 (function (KapitelabgabeDreiServer) {
-    console.log("Starting server"); // Konsolenausgabe "Starting Server" um Startpunk des Servers in der Konsolenausgabe nachvollziehen zu können
+    let userData;
     let port = Number(process.env.PORT); // Erstellen der Port-Adresse
-    if (!port) // falls port keinen Wert hat, wird der Port 8100 zugewiesen
+    if (port == undefined) // falls port keinen Wert hat, wird der Port 8100 zugewiesen
         port = 8100;
+    let databaseURL = "mongodb://localhost:27017";
     let server = Http.createServer(); // createServer() erstellt einen Server und speichert dessen Wert in der Variablen server vom Typ HTML.server
     server.addListener("request", handleRequest); // Um Anfragen (requests) von Nutzern auf einem Server verarbeiten zu können, wird dieser Eventlistener verwendet. Der Listener ruft für jede eingehende Nutzeranfrage bzw. request die handleRequest-Funktion auf  
     server.addListener("listening", handleListen); // Eventlistener: Hört Server zu und befindet sich im status "listen" und es erfolgte noch keine Anfrage durch den Nutzer, so wird die Funktion handleListen() aufgerufen
