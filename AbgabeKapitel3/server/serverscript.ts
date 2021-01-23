@@ -31,4 +31,9 @@ export namespace KapitelabgabeDreiServer {                                      
         _response.write(_request.url);                                                              // Funktion, die dem Nachrichten-Body die URL der Serverrequest anfügt
         _response.end();                                                                            // markiert Ende der Serverantwort
     }
+    
+    
+    function requestToJSON(_request: Http.IncomingMessage): {
+
+    }
 }
