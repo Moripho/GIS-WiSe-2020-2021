@@ -1,33 +1,19 @@
 {
-  "name": "gis-wise-2020-2021",
-  "description": "Repository in dem sich alle Aufgaben des Wintersemesters 2020-2021 befinden",
-  "version": "1.0.0",
-  "main": "index.js",
-  "devDependencies": {
-    "@types/node": "^14.14.20"
-  },
-  "scripts": {
-    "start": "node ./serverscript.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Moripho/GIS-WiSe-2020-2021.git"
-  },
-  "keywords": [
-    "packae",
-    "json",
-    "file",
-    "for",
-    "server"
-  ],
-  "author": "Jonas Kopp",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Moripho/GIS-WiSe-2020-2021/issues"
-  },
-  "homepage": "https://github.com/Moripho/GIS-WiSe-2020-2021#readme",
-  "dependencies": {
-    "@types/mongodb": "^3.6.3",
-    "mongodb": "^3.6.3"
+	"name": "herokuhack",
+	"version": "1.0.0",
+	"description": "package json not in root",
+	"main": "index.js",
+	"scripts": {
+		"postinstall": "cd AbgabeKapitel3/server/ && npm install",
+	  "start": "node AbgabeKapitel3/server/index.js"
+	  
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+	},
+	"devDependencies": {
+	}
   }
-}
+  
