@@ -5,15 +5,11 @@
 	"main": "index.js",
 	"scripts": {
 		"postinstall": "cd AbgabeKapitel3/server/ && npm install",
-	  "start": "node AbgabeKapitel3/server/index.js"
-	  
+		"start": "node AbgabeKapitel3/server/serverscript.js"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"dependencies": {
-	},
-	"devDependencies": {
-	}
-  }
-  
+	"dependencies": {},
+	"devDependencies": {}
+}
