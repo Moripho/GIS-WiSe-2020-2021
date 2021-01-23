@@ -10,7 +10,7 @@ body {
 
 #loginbox {
     width: 320px;
-    height: 420px;
+    height: 620px;
     background: rgba(0, 0, 0, 0.5);
     color: #fff;
     top: 50%;
@@ -28,14 +28,6 @@ body {
     position: absolute;
     top: -50px;
     left: calc(50% - 50px);
-}
-
-h1 {
-    margin-top: 300px;
-    padding: 0 0 20px;
-    text-align: center;
-    font-size: 22px;
-    color: white;
 }
 
 footer {
