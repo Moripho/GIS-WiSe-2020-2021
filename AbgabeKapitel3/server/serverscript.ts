@@ -6,10 +6,6 @@ export namespace KapitelabgabeDreiServer {                                      
     interface User {
         fname: string;
         lname: string;
-        postalCode: string;
-        city: string;
-        email: string;
-        password: string;
     }
 
     interface ServerMeldung {   // Interface für Server Meldung
@@ -60,30 +56,76 @@ export namespace KapitelabgabeDreiServer {                                      
             console.log("Received parameters");
 
             const url: URLSearchParams = new URLSearchParams(_request.url.replace("/?", ""));
-            const emailExists: boolean = (await userData.findOne({ email: url.get("email") })) !== null;                             // verhindert, dass der Server den ersten Query als null ausliest. Server kann Search Parameter sonst nicht vom ersten Query trennen.
-            
-            if (!emailExists) {
-                storeOrder({
-                    fname: url.get("fname"),
-                    lname: url.get("lname"),
-                    postalCode: url.get("postalCode"),
-                    city: url.get("city"),
-                    email: url.get("email"),
-                    password: url.get("password")
-                });
+            let response: string;
 
-                console.log(`Saved user ${url.get("fname")} to database`);                              // Servernachricht, dass der Nutzer angelegt wurde.
+            switch (url.get("requestType")) {
+                case "register":
+                    response = await register(url);
+                    break;
+                case "login":
+                    response = await login(url);
+                    break;
+                case "getUsers":
+                    response = await getUsers();
+                    break;
+                default:
+                    response = JSON.stringify({
+                        error: true,
+                        message: "Error: Unknown request type"
+                    })
             }
-
-            _response.write(JSON.stringify({
-                error: emailExists,
-                message: emailExists ? "E-Mail existiert bereits!" : "Konto erstellt"
-            }));
+            _response.write(response);
         }
         _response.end();                                                                            // markiert Ende der Serverantwort
     }
 
-    function storeOrder(_user: User): void {                                                        // Funktion, die dafür sorgt, dass unser User an die User-Database weitergegeben und dort gespeichert wird
-        userData.insertOne(_user);
+    async function register(url: URLSearchParams): Promise<string> {
+        const emailExists: boolean = (await userData.findOne({ email: url.get("email") })) !== null;
+
+        if (!emailExists) {
+
+            userData.insertOne({
+                fname: url.get("fname"),
+                lname: url.get("lname"),
+                postalCode: url.get("postalCode"),
+                city: url.get("city"),
+                email: url.get("email"),
+                password: url.get("password")
+            });
+            console.log(`Saved user ${url.get("fname")} to database`);                              // Servernachricht, dass der Nutzer angelegt wurde.
+        }
+
+        return JSON.stringify({
+            error: emailExists,
+            message: emailExists ? "E-Mail existiert bereits!" : "Konto erstellt"
+        });
     }
+
+    async function login(url: URLSearchParams): Promise<string> {
+        const email: string = url.get("email");
+        const password: string = url.get("password");
+
+        const loginSuccess: boolean = true;
+
+        await userData.find({}, { projection: { _id: 0, email: 1, password: 1 } }))
+
+        return JSON.stringify({
+            error: loginSuccess,
+            message: loginSuccess ? "Login successful" : "Login failed"
+
+        });
+    }
+
+    async function getUsers(): Promise<string> {
+        const users: User[] = await userData.find({}, { projection: { _id: 0, fname: 1, lname: 1, postalCode: 0, city: 0, email: 0, password: 0 } }).toArray();
+
+        
+
+        return JSON.stringify({
+            error: false,
+            message: JSON.stringify(users)
+        });
+    }
+
+
 }
