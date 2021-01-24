@@ -13,8 +13,10 @@ function getData() {
     data.append("city", city.value);
     data.append("email", email.value);
     data.append("password", password.value);
-    let query = new URLSearchParams(data);
-    fetch("https://gissose20202021.herokuapp.com" + "?" + query.toString(), {
+    const query = new URLSearchParams(data);
+    const isLocal = true; // Bei Upload in Cloud Wert als false setzen!
+    const url = isLocal ? "http://localhost:8100" : "https://gissose20202021.herokuapp.com";
+    fetch(url + "?" + query.toString(), {
         method: "GET"
     }).then(response => {
         if (!response.ok) {

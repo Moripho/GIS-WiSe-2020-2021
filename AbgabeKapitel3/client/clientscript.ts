@@ -15,10 +15,11 @@ function getData(): void {
     data.append("email", email.value);
     data.append("password", password.value);
 
-    let query: URLSearchParams = new URLSearchParams(<any>data);
-
+    const query: URLSearchParams = new URLSearchParams(<any>data);
+    const isLocal: boolean = true;                                                                    // Bei Upload in Cloud Wert als false setzen!
+    const url: string = isLocal ? "http://localhost:8100" : "https://gissose20202021.herokuapp.com";
   
-    fetch("https://gissose20202021.herokuapp.com" + "?" + query.toString(), {
+    fetch(url + "?" + query.toString(), {
       method: "GET"
     }).then(response => {
       if (!response.ok) {

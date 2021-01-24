@@ -7,7 +7,7 @@
     "@types/node": "^14.14.20"
   },
   "scripts": {
-    "start": "node ./AbgabeKapitel3/serverscript.js"
+    "start": "node ./serverscript.js"
   },
   "repository": {
     "type": "git",

@@ -3,39 +3,78 @@ import * as Url from "url";                                                     
 import * as Mongo from "mongodb";
 
 export namespace KapitelabgabeDreiServer {                                                          // Namespacing für den Server der Kapitelabgabe 3
-    let userData: Mongo.Collection;    
+    interface User {
+        fname: string;
+        lname: string;
+        postalCode: string;
+        city: string;
+        email: string;
+        password: string;
+    }
+
+    let userData: Mongo.Collection;
+
     let port: number = Number(process.env.PORT);                                                    // Erstellen der Port-Adresse
-    if (port == undefined)                                                                                      // falls port keinen Wert hat, wird der Port 8100 zugewiesen
-        port = 8100;
+    if (!port) port = 8100;                                                                         // falls port keinen Wert hat, wird der Port 8100 zugewiesen
 
-    let databaseURL: string = "mongodb://localhost:27017";
-    
-    let server: Http.Server = Http.createServer();                                                  // createServer() erstellt einen Server und speichert dessen Wert in der Variablen server vom Typ HTML.server
-    server.addListener("request", handleRequest);                                                   // Um Anfragen (requests) von Nutzern auf einem Server verarbeiten zu können, wird dieser Eventlistener verwendet. Der Listener ruft für jede eingehende Nutzeranfrage bzw. request die handleRequest-Funktion auf  
-    server.addListener("listening", handleListen);                                                  // Eventlistener: Hört Server zu und befindet sich im status "listen" und es erfolgte noch keine Anfrage durch den Nutzer, so wird die Funktion handleListen() aufgerufen
-    server.listen(port);                                                                           // listen-Funktion wird aufgerufen und triggert Zeil 11 bzw. Eventlistener
+    const databaseURL: string = "mongodb://localhost:27017";
 
-    console.log("Server starting on port: " + port);
+    startServer(port);
+    connectToDatabase(databaseURL);
 
-    function handleListen(): void {                                                                 // Funktion die angibt, dass Server gerade zuhört
-        console.log("Listening");                                                                   // Konsolenausgabe, die obiges wiederspiegeln soll
+    function startServer(_port: number): void {
+        let server: Http.Server = Http.createServer();                                                  // createServer() erstellt einen Server und speichert dessen Wert in der Variablen server vom Typ HTML.server
+
+        console.log("Server starting on port " + _port);
+
+        server.listen(_port);                                                                           // listen-Funktion wird aufgerufen und triggert Eventlistener
+
+        server.addListener("request", handleRequest);                                                   // Um Anfragen (requests) von Nutzern auf einem Server verarbeiten zu können, wird dieser Eventlistener verwendet. Der Listener ruft für jede eingehende Nutzeranfrage bzw. request die handleRequest-Funktion auf  
+        server.addListener("listening", () => console.log("Listening"));                                                  // Eventlistener: Hört Server zu und befindet sich im status "listen" und es erfolgte noch keine Anfrage durch den Nutzer, so wird die Funktion handleListen() aufgerufen
+    }
+
+
+    async function connectToDatabase(_url: string): Promise<void> {
+        let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+        let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
+        await mongoClient.connect();                                                // await da auf Promise gewartete wird
+        userData = mongoClient.db("UserData").collection("Users");
+        console.log("Database connection:", userData != undefined);                 // Hat userData Definition -> true, sonst false als Indikator
     }
 
 
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {  // Funktion, die die Serveranfragen durch Nutzer verarbeitet
-                                                                                                    // LAUT VORLESUNGSMATERIALIEN:
-                                                                                                    // handleRequest erwartet normalerweise zwei Parameter, ersteres vom Typ IncomingMessage, letzteres vom Typ ServerResponse (beide aus http-Modul)
-                                                                                                    // IncomingMessage liefert Infos zum eingegangenen Request-Objekt (z. B. URL als String)
-                                                                                                    // ServerResponse ist ein Objekt, welches Infos für die Serverantowrt sammelt. Die Info wird unterteilt in Header (Infos zur eigentlichen Nachricht) und Body (die Nachricht selbst)                                                                                                  
+        // LAUT VORLESUNGSMATERIALIEN:
+        // handleRequest erwartet normalerweise zwei Parameter, ersteres vom Typ IncomingMessage, letzteres vom Typ ServerResponse (beide aus http-Modul)
+        // IncomingMessage liefert Infos zum eingegangenen Request-Objekt (z. B. URL als String)
+        // ServerResponse ist ein Objekt, welches Infos für die Serverantowrt sammelt. Die Info wird unterteilt in Header (Infos zur eigentlichen Nachricht) und Body (die Nachricht selbst)                                                                                                  
 
         _response.setHeader("content-type", "text/html; charset=utf-8");                            // über setHeader-Funktion wird Header-Information integriert. Header gibt an, dass die Serverantwort ein mit utf-8 kodierter Text ist.
         _response.setHeader("Access-Control-Allow-Origin", "*");                                    // jeder darf Nachricht öffnen, Asterisk "*" = alles
-        _response.write(_request.url);                                                              // Funktion, die dem Nachrichten-Body die URL der Serverrequest anfügt
+
+        if (_request.url) {
+            console.log("Received parameters");
+
+            const url: URLSearchParams = new URLSearchParams(_request.url.replace("/?", ""));
+            // url.forEach((value, key) => _response.write(key + ":" + value)) 
+            // _response.write(url.toString()); 
+            // '/?fname=korpus&lname=kopp&'  
+            
+            storeOrder({
+                fname: url.get("fname"),
+                lname: url.get("lname"),
+                postalCode: url.get("postalCode"),
+                city: url.get("city"),
+                email: url.get("email"),
+                password: url.get("password")
+            });
+
+            console.log(`Saved user ${url.get("fname")} to database`);
+        }
         _response.end();                                                                            // markiert Ende der Serverantwort
     }
-    
-    
-    function requestToJSON(_request: Http.IncomingMessage): {
 
+    function storeOrder(_user: User): void {
+        userData.insertOne(_user);
     }
 }
