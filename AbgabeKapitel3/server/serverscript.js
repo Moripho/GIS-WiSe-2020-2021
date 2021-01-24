@@ -81,7 +81,7 @@ var KapitelabgabeDreiServer;
         const password = url.get("password");
         const loginSuccess = (await userData.findOne({ email: email, password: password })) !== null;
         return JSON.stringify({
-            error: loginSuccess,
+            error: !loginSuccess,
             message: loginSuccess ? "Login successful" : "Login failed"
         });
     }

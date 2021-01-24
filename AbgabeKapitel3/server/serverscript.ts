@@ -108,7 +108,7 @@ export namespace KapitelabgabeDreiServer {                                      
         const loginSuccess: boolean = (await userData.findOne({ email: email, password: password })) !== null;
 
         return JSON.stringify({
-            error: loginSuccess,
+            error: !loginSuccess,
             message: loginSuccess ? "Login successful" :  "Login failed"
         });
     }
