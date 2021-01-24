@@ -10,9 +10,15 @@ body {
 }
 
 a {
+    display: inline-block;
     text-decoration: none;
     font-size: 18px;
-    color: #fff;
+    color: purple;
+    margin-left: 20px;
+    text-align: center;
+}
+
+#toStart {
     margin-left: 50px;
 }
 
@@ -103,3 +109,4 @@ input[type="submit"]:hover {
     box-sizing: border-box;
     padding: 70px 30px;
 }
+

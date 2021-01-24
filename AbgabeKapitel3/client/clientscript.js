@@ -27,6 +27,9 @@ function getData() {
     })
         .catch(console.error);
 }
-function getUsers() {
+function getUserNames() {
+    const query = new URLSearchParams(data);
+    const isLocal = false; // Bei Upload in Cloud Wert als false setzen!
+    const url = isLocal ? "http://localhost:8100" : "https://gissose20202021.herokuapp.com";
 }
 //# sourceMappingURL=clientscript.js.map
