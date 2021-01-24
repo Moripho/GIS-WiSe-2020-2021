@@ -47,7 +47,7 @@ export namespace KapitelabgabeDreiServer {                                      
         console.log("Database connection:", userData != undefined);                 // Hat userData Definition -> true, sonst false als Indikator
     }
 
-    async function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {  // Funktion, die die Serveranfragen durch Nutzer verarbeitet
+    async function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {  // Funktion, die die Serveranfragen durch Nutzer verarbeitet
         // LAUT VORLESUNGSMATERIALIEN:
         // handleRequest erwartet normalerweise zwei Parameter, ersteres vom Typ IncomingMessage, letzteres vom Typ ServerResponse (beide aus http-Modul)
         // IncomingMessage liefert Infos zum eingegangenen Request-Objekt (z. B. URL als String)
