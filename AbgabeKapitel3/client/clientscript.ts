@@ -6,6 +6,7 @@ function getData(): void {
   const city: HTMLInputElement = <HTMLInputElement>document.getElementById("city");
   const email: HTMLInputElement = <HTMLInputElement>document.getElementById("email");
   const password: HTMLInputElement = <HTMLInputElement>document.getElementById("password");
+  const serverMessage: HTMLElement = <HTMLElement>document.getElementById("serverMessage");
 
   let data: FormData = new FormData();
   data.append("fname", fname.value);
@@ -26,5 +27,12 @@ function getData(): void {
     .then(response => {
       console.log(response.error);
       console.log(response.message);
+      
+      serverMessage.innerText = response.message;                                             // Text des displayStatus wird abhängig davon befüllt, ob ein error oder eine erfolgreiche Kommunikation stattgefunden hat. Hierzu wird
+      serverMessage.style.color = response.error ? "#a02128" : "#19e619";               // war die Kommunikation erfolgreich, wird die Serverantwort in grün und sonst in rot dargestellt
+
     }).catch(console.error);
+
+  
 }
+
