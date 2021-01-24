@@ -87,6 +87,7 @@ var KapitelabgabeDreiServer;
     }
     async function getUsers() {
         const users = await userData.find({}, { projection: { _id: 0, fname: 1, lname: 1, postalCode: 0, city: 0, email: 0, password: 0 } }).toArray();
+        console.log(users);
         return JSON.stringify({
             error: false,
             message: JSON.stringify(users)
