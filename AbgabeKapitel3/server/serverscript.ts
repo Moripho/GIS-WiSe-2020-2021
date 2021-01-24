@@ -114,7 +114,7 @@ export namespace KapitelabgabeDreiServer {                                      
     }
 
     async function getUsers(): Promise<string> {
-        const users: Promise<User[]> = userData.find({}, { projection: { "fname": true, "lname": true } }).toArray();
+        const users: Promise<User[]> = userData.find({}, { projection: { "_id": false, "fname": true, "lname": true } }).toArray();
 
         return JSON.stringify({
             error: false,

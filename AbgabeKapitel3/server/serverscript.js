@@ -86,7 +86,7 @@ var KapitelabgabeDreiServer;
         });
     }
     async function getUsers() {
-        const users = userData.find({}, { projection: { "fname": true, "lname": true } }).toArray();
+        const users = userData.find({}, { projection: { "_id": false, "fname": true, "lname": true } }).toArray();
         return JSON.stringify({
             error: false,
             message: JSON.stringify(await users)
