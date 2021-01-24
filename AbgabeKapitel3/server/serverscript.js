@@ -9,7 +9,8 @@ var KapitelabgabeDreiServer;
     let port = Number(process.env.PORT); // Erstellen der Port-Adresse
     if (!port)
         port = 8100; // falls port keinen Wert hat, wird der Port 8100 zugewiesen
-    const databaseURL = "mongodb://localhost:27017";
+    const isLocal = false; // Bei Upload in Cloud Wert als false setzen!
+    const databaseURL = isLocal ? "mongodb://localhost:27017" : "mongodb+srv://moripho-admin:megapasswort@gis-wintersemester-20-2.ltfjc.mongodb.net/UserData?retryWrites=true&w=majority";
     startServer(port);
     connectToDatabase(databaseURL);
     function startServer(_port) {
