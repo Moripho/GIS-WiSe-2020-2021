@@ -1,4 +1,3 @@
-
 function getData(): void {
   const fname: HTMLInputElement = <HTMLInputElement>document.getElementById("fname");
   const lname: HTMLInputElement = <HTMLInputElement>document.getElementById("lname");
@@ -25,8 +24,6 @@ function getData(): void {
   })
     .then(response => response.json())
     .then(response => {
-      console.log(response.error);
-      console.log(response.message);
       
       serverMessage.innerText = response.message;                                             // Text des displayStatus wird abhängig davon befüllt, ob ein error oder eine erfolgreiche Kommunikation stattgefunden hat. Hierzu wird
       serverMessage.style.color = response.error ? "#a02128" : "#19e619";               // war die Kommunikation erfolgreich, wird die Serverantwort in grün und sonst in rot dargestellt
@@ -37,3 +34,6 @@ function getData(): void {
   
 }
 
+function getUsers(): void {
+  
+}
