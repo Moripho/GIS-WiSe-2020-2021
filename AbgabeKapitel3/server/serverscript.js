@@ -6,7 +6,7 @@ const Mongo = require("mongodb");
 var KapitelabgabeDreiServer;
 (function (KapitelabgabeDreiServer) {
     let userData;
-    let port = Number(process.env.PORT); // Erstellen der Port-Adresse
+    let port = Number(process.env.PORT); // Erstellen der Port-Adresse, Process-Objekt liefert einen Port. Da dieses aber auch string oder undefined sein kann, auf number casten
     if (!port)
         port = 8100; // falls port keinen Wert hat, wird der Port 8100 zugewiesen
     const isLocal = false; // Bei Upload in Cloud Wert als false setzen!
@@ -14,11 +14,11 @@ var KapitelabgabeDreiServer;
     startServer(port);
     connectToDatabase(databaseURL);
     function startServer(_port) {
-        let server = Http.createServer(); // createServer() erstellt einen Server und speichert dessen Wert in der Variablen server vom Typ HTML.server
+        let server = Http.createServer(); // Dunktion, um Server zu starten
         console.log("Server starting on port " + _port);
         server.listen(_port); // listen-Funktion wird aufgerufen und triggert Eventlistener
         server.addListener("request", handleRequest); // Um Anfragen (requests) von Nutzern auf einem Server verarbeiten zu können, wird dieser Eventlistener verwendet. Der Listener ruft für jede eingehende Nutzeranfrage bzw. request die handleRequest-Funktion auf  
-        server.addListener("listening", () => console.log("Listening")); // Eventlistener: Hört Server zu und befindet sich im status "listen" und es erfolgte noch keine Anfrage durch den Nutzer, so wird die Funktion handleListen() aufgerufen
+        server.addListener("listening", () => console.log("Listening")); // Eventlistener: Hört Server zu und befindet sich im status "listening", so wird dies auf der Konsole ausgegeben
     }
     async function connectToDatabase(_url) {
         let options = { useNewUrlParser: true, useUnifiedTopology: true };
@@ -37,18 +37,22 @@ var KapitelabgabeDreiServer;
         if (_request.url) {
             console.log("Received parameters");
             const url = new URLSearchParams(_request.url.replace("/?", ""));
-            // url.forEach((value, key) => _response.write(key + ":" + value)) 
-            // _response.write(url.toString()); 
-            // '/?fname=korpus&lname=kopp&'  
-            storeOrder({
-                fname: url.get("fname"),
-                lname: url.get("lname"),
-                postalCode: url.get("postalCode"),
-                city: url.get("city"),
-                email: url.get("email"),
-                password: url.get("password")
+            const emailExists = userData.findOne({ email: url.get("email") }) !== null; // verhindert, dass der Server den ersten Query als null ausliest. Server kann Search Parameter sonst nicht vom ersten Query trennen.
+            if (!emailExists) {
+                storeOrder({
+                    fname: url.get("fname"),
+                    lname: url.get("lname"),
+                    postalCode: url.get("postalCode"),
+                    city: url.get("city"),
+                    email: url.get("email"),
+                    password: url.get("password")
+                });
+                console.log(`Saved user ${url.get("fname")} to database`); // Servernachricht, dass der Nutzer angelegt wurde.
+            }
+            _response.write({
+                error: emailExists,
+                message: emailExists ? "E-Mail existiert bereits!" : "Konto erstellt"
             });
-            console.log(`Saved user ${url.get("fname")} to database`);
         }
         _response.end(); // markiert Ende der Serverantwort
     }

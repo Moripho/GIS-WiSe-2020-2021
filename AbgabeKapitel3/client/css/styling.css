@@ -6,6 +6,14 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    font-family: sans-serif;
+}
+
+a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
+    margin-left: 50px;
 }
 
 #loginbox {
@@ -34,48 +42,37 @@ footer {
     color: white;
     text-align: center;
 }
-
-#login-box p {
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
-}
-
-#loginbox input {
+input {
     width: 100%;
-    margin-bottom: 20px;
-}
-
-#loginbox input[type="text"], input[type="number"], input[type="email"], input[type="password"] {
-    border: none;
-    border-bottom: 1px solid #fff;
-    background: transparent;
-    outline: none;
     height: 40px;
+    border: none;
+    margin-bottom: 20px;
+    outline: none;
+}
+input:not(input[type="submit"]) {
+    border-bottom: 1px solid #fff;
+    background: transparent;  
     color: #fff;
     font-size: 16px;
 }
 
-#loginbox input[type="number"] {
+input[type="number"] {
     -moz-appearance: textfield;
 }
 
-#loginbox input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-#loginbox input[type="submit"] {
-    border: none;
-    outline: none;
-    height: 40px;
+input[type="submit"] {
     background: #fff;
     color: #000;
     font-size: 18px;
     border-radius: 40px;
 }
 
-#loginbox input[type="submit"]:hover {
+input[type="submit"]:hover {
     cursor: pointer;
     background: #fff9cb;
     color: #000;
@@ -88,11 +85,16 @@ footer {
     font-size: 16px;
 }
 
-/*---------------------------------- unterseiteEins-------------------------------------*/
+#serverMessage {
+    text-align: center;
+    color: red;
+    font-size: 20px;
+}
 
-#loginboxUnterseiteEins {
+/*---------------------------------- unterseiteEins + unterSeiteZwei-------------------------------------*/
+
+#loginboxUnterseiteEins, #loginboxUnterseiteZwei {
     width: 320px;
-    height: 300px;
     background: rgba(0, 0, 0, 0.5);
     color: #fff;
     top: 50%;
@@ -101,81 +103,4 @@ footer {
     transform: translate(-50%, -50%);
     box-sizing: border-box;
     padding: 70px 30px;
-}
-
-#loginboxUnterseiteEins input[type="submit"] {
-    border: none;
-    outline: none;
-    height: 40px;
-    background: #fff;
-    color: #000;
-    font-size: 18px;
-    border-radius: 40px;
-    margin-left: 75px;
-}
-
-#loginboxUnterseiteEins input[type="submit"]:hover {
-    cursor: pointer;
-    background: #fff9cb;
-    color: #000;
-}
-
-#loginboxUnterseiteEins a {
-    text-decoration: none;
-    font-size: 18px;
-    color: #fff;
-    margin-left: 50px;
-}
-
-/*---------------------------------- unterseiteZwei-------------------------------------*/
-
-#loginboxUnterseiteZwei {
-    width: 320px;
-    height: 420px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    box-sizing: border-box;
-    padding: 70px 30px;
-}
-
-#loginboxUnterseiteZwei input[type="submit"] {
-    border: none;
-    outline: none;
-    height: 40px;
-    background: #fff;
-    color: #000;
-    font-size: 18px;
-    border-radius: 40px;
-}
-
-#loginboxUnterseiteZwei input[type="submit"]:hover {
-    cursor: pointer;
-    background: #fff9cb;
-    color: #000;
-}
-
-#loginboxUnterseiteZwei a {
-    text-decoration: none;
-    font-size: 18px;
-    color: #fff;
-    margin-left: 50px;
-}
-
-#loginboxUnterseiteZwei input {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-#loginboxUnterseiteZwei input[type="text"], input[type="number"], input[type="email"], input[type="password"] {
-    border: none;
-    border-bottom: 1px solid #fff;
-    background: transparent;
-    outline: none;
-    height: 40px;
-    color: #fff;
-    font-size: 16px;
 }

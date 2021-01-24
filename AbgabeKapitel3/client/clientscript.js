@@ -14,17 +14,15 @@ function getData() {
     data.append("email", email.value);
     data.append("password", password.value);
     const query = new URLSearchParams(data);
-    const isLocal = true; // Bei Upload in Cloud Wert als false setzen!
+    const isLocal = false; // Bei Upload in Cloud Wert als false setzen!
     const url = isLocal ? "http://localhost:8100" : "https://gissose20202021.herokuapp.com";
     fetch(url + "?" + query.toString(), {
         method: "GET"
-    }).then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok.");
-        }
-        else {
-            console.log(response.url);
-        }
+    })
+        .then(response => response.json())
+        .then(response => {
+        console.log(response.error);
+        console.log(response.message);
     }).catch(console.error);
 }
 //# sourceMappingURL=clientscript.js.map
