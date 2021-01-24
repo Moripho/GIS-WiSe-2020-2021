@@ -49,10 +49,10 @@ var KapitelabgabeDreiServer;
                 });
                 console.log(`Saved user ${url.get("fname")} to database`); // Servernachricht, dass der Nutzer angelegt wurde.
             }
-            _response.write({
+            _response.write(JSON.stringify({
                 error: emailExists,
                 message: emailExists ? "E-Mail existiert bereits!" : "Konto erstellt"
-            });
+            }));
         }
         _response.end(); // markiert Ende der Serverantwort
     }
