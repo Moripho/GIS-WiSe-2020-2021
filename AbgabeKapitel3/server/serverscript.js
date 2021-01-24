@@ -79,8 +79,7 @@ var KapitelabgabeDreiServer;
     async function login(url) {
         const email = url.get("email");
         const password = url.get("password");
-        const loginSuccess = true;
-        await userData.find({}, { projection: { _id: 0, email: 1, password: 1 } });
+        const loginSuccess = (await userData.findOne({ email: email, password: password })) !== null;
         return JSON.stringify({
             error: loginSuccess,
             message: loginSuccess ? "Login successful" : "Login failed"

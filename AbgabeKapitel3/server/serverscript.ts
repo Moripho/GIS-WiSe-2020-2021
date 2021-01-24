@@ -105,21 +105,16 @@ export namespace KapitelabgabeDreiServer {                                      
         const email: string = url.get("email");
         const password: string = url.get("password");
 
-        const loginSuccess: boolean = true;
-
-        await userData.find({}, { projection: { _id: 0, email: 1, password: 1 } }))
+        const loginSuccess: boolean = (await userData.findOne({ email: email, password: password })) !== null;
 
         return JSON.stringify({
             error: loginSuccess,
             message: loginSuccess ? "Login successful" : "Login failed"
-
         });
     }
 
     async function getUsers(): Promise<string> {
         const users: User[] = await userData.find({}, { projection: { _id: 0, fname: 1, lname: 1, postalCode: 0, city: 0, email: 0, password: 0 } }).toArray();
-
-        
 
         return JSON.stringify({
             error: false,
