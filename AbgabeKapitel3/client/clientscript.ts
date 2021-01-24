@@ -34,10 +34,10 @@ function getData(): void {
   
 }
 
-function getUserNames(): void {
+/* function getUserNames(): void {
   const query: URLSearchParams = new URLSearchParams(<any>data);
   const isLocal: boolean = false;                                                                    // Bei Upload in Cloud Wert als false setzen!
   const url: string = isLocal ? "http://localhost:8100" : "https://gissose20202021.herokuapp.com";
 
-  
-}
+
+}*/
