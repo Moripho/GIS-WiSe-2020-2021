@@ -89,7 +89,7 @@ var KapitelabgabeDreiServer;
         const users = userData.find({}, { projection: { "_id": false, "fname": true, "lname": true } }).toArray();
         return JSON.stringify({
             error: false,
-            message: JSON.stringify(await users)
+            message: (await users).map(user => `${user.fname} ${user.lname}`).join(", ")
         });
     }
 })(KapitelabgabeDreiServer = exports.KapitelabgabeDreiServer || (exports.KapitelabgabeDreiServer = {}));

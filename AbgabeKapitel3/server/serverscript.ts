@@ -118,7 +118,7 @@ export namespace KapitelabgabeDreiServer {                                      
 
         return JSON.stringify({
             error: false,
-            message: JSON.stringify(await users)
+            message: (await users).map(user => `${user.fname} ${user.lname}`).join(", ")
         });
     }
 
