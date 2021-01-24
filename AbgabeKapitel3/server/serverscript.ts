@@ -47,7 +47,7 @@ export namespace KapitelabgabeDreiServer {                                      
         console.log("Database connection:", userData != undefined);                 // Hat userData Definition -> true, sonst false als Indikator
     }
 
-    function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {  // Funktion, die die Serveranfragen durch Nutzer verarbeitet
+    async function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {  // Funktion, die die Serveranfragen durch Nutzer verarbeitet
         // LAUT VORLESUNGSMATERIALIEN:
         // handleRequest erwartet normalerweise zwei Parameter, ersteres vom Typ IncomingMessage, letzteres vom Typ ServerResponse (beide aus http-Modul)
         // IncomingMessage liefert Infos zum eingegangenen Request-Objekt (z. B. URL als String)
@@ -60,7 +60,7 @@ export namespace KapitelabgabeDreiServer {                                      
             console.log("Received parameters");
 
             const url: URLSearchParams = new URLSearchParams(_request.url.replace("/?", ""));
-            const emailExists: boolean = userData.findOne({ email: url.get("email") }) !== null;                             // verhindert, dass der Server den ersten Query als null ausliest. Server kann Search Parameter sonst nicht vom ersten Query trennen.
+            const emailExists: boolean = (await userData.findOne({ email: url.get("email") })) !== null;                             // verhindert, dass der Server den ersten Query als null ausliest. Server kann Search Parameter sonst nicht vom ersten Query trennen.
             
             if (!emailExists) {
                 storeOrder({

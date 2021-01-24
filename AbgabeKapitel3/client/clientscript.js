@@ -26,6 +26,7 @@ function getData() {
         console.log(response.message);
         serverMessage.innerText = response.message; // Text des displayStatus wird abhängig davon befüllt, ob ein error oder eine erfolgreiche Kommunikation stattgefunden hat. Hierzu wird
         serverMessage.style.color = response.error ? "#a02128" : "#19e619"; // war die Kommunikation erfolgreich, wird die Serverantwort in grün und sonst in rot dargestellt
-    }).catch(console.error);
+    })
+        .catch(console.error);
 }
 //# sourceMappingURL=clientscript.js.map

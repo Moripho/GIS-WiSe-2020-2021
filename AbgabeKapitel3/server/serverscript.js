@@ -27,7 +27,7 @@ var KapitelabgabeDreiServer;
         userData = mongoClient.db("UserData").collection("Users");
         console.log("Database connection:", userData != undefined); // Hat userData Definition -> true, sonst false als Indikator
     }
-    function handleRequest(_request, _response) {
+    async function handleRequest(_request, _response) {
         // LAUT VORLESUNGSMATERIALIEN:
         // handleRequest erwartet normalerweise zwei Parameter, ersteres vom Typ IncomingMessage, letzteres vom Typ ServerResponse (beide aus http-Modul)
         // IncomingMessage liefert Infos zum eingegangenen Request-Objekt (z. B. URL als String)
@@ -37,7 +37,7 @@ var KapitelabgabeDreiServer;
         if (_request.url) {
             console.log("Received parameters");
             const url = new URLSearchParams(_request.url.replace("/?", ""));
-            const emailExists = userData.findOne({ email: url.get("email") }) !== null; // verhindert, dass der Server den ersten Query als null ausliest. Server kann Search Parameter sonst nicht vom ersten Query trennen.
+            const emailExists = (await userData.findOne({ email: url.get("email") })) !== null; // verhindert, dass der Server den ersten Query als null ausliest. Server kann Search Parameter sonst nicht vom ersten Query trennen.
             if (!emailExists) {
                 storeOrder({
                     fname: url.get("fname"),
