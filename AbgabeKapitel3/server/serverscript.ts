@@ -109,7 +109,7 @@ export namespace KapitelabgabeDreiServer {                                      
 
         return JSON.stringify({
             error: loginSuccess,
-            message: loginSuccess ? "Login failed" : "Login successful"
+            message: loginSuccess ? "Login successful" :  "Login failed"
         });
     }
 
